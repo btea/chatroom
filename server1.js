@@ -1,15 +1,6 @@
 /**
  * Created by zz on 2017/5/6.
  */
-//var http=require('http'),
-//    express=require('express'),
-//    server=http.createServer(function(req,res){
-//        res.writeHead(200,{'Content-Type':'text/html'});
-//        res.write('<h1>世界你好！</h1>');
-//        res.end();
-//    });
-//server.listen(8080);
-//console.log('server started');
 var express = require('express'),
     app = express(),
     server = require('http').createServer(app),
@@ -19,10 +10,7 @@ var express = require('express'),
 app.use('/' , express.static(__dirname + '/chart'));
 //socket部分
 io.on('connection' , function(socket){
-    //接收并处理客户端发送的foo事件
-    socket.on('foo' , function(data){
-        console.log(data);
-    });
+    //接收并处理客户端发送的login事件
     socket.on('login' , function(nickname){
         if(users.indexOf(nickname) > -1){
             socket.emit('nickExisted');

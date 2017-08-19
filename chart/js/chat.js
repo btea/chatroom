@@ -20,17 +20,23 @@ HiChat.prototype = {
         //监听socket的connect事件，此事件表示连接已建立
         this.socket.on('connect',function(){
             //连接到服务器后，显示昵称输入框
-            document.getElementById('info').textContent = 'get yourself a nickname:）';
+            document.getElementById('info').textContent = 'get yourself a nickname';
             document.getElementById('nickWrapper').style.display = 'block';
             document.getElementById('nicknameInput').focus();
         });
         //昵称设置确定按钮
         document.getElementById('loginBtn').addEventListener('click',function(){
             var nickname = document.getElementById('nicknameInput').value;
+
             //检查昵称输入框是否为空
             if(nickname.trim().length != 0){
-                //不为空，发起一个login事件并将输入的昵称发送到服务器
-                that.socket.emit('login',nickname);
+                console.log((nickname.trim().length));
+                if(nickname.trim().length > 10){
+                    alert('用户昵称长度不得超过十个字符！');
+                }else{
+                    //不为空，发起一个login事件并将输入的昵称发送到服务器
+                    that.socket.emit('login',nickname);
+                }
             }else{
                 //输入框获得焦点
                 document.getElementById('nicknameInput').focus();
@@ -153,7 +159,13 @@ HiChat.prototype = {
             if (e.keyCode == 13) {
                 var nickName = document.getElementById('nicknameInput').value;
                 if (nickName.trim().length != 0) {
-                    that.socket.emit('login', nickName);
+                    if(nickName.trim().length > 10){
+                        alert('用户昵称长度不得超过十个字符！');
+                        document.getElementById('nicknameInput').value = '';
+                        document.getElementById('nicknameInput').focus();
+                    }else{
+                        that.socket.emit('login', nickName);
+                    }
                 }
             }
         }, false);
