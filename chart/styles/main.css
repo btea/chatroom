@@ -1,0 +1,220 @@
+html, body {
+    margin: 0;
+    background-color: #efefef;
+    font-family: sans-serif;
+}
+.wrapper {
+    width: 500px;
+    height: 640px;
+    padding: 5px;
+    margin: 0 auto;
+    background-color: #ddd;
+}
+#loginWrapper {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(5, 5, 5, .6);
+    text-align: center;
+    color: #fff;
+    display: block;
+    padding-top: 200px;
+}
+#nickWrapper {
+    display: none;
+}
+.banner {
+    height: 80px;
+    width: 100%;
+    position: relative;
+}
+#status{
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}
+.banner p {
+    float: left;
+    display: inline-block;
+}
+.controls {
+    height: 100px;
+    margin: 5px 0;
+    position: relative;
+}
+#historyMsg {
+    height: 400px;
+    background-color: #fff;
+    overflow: auto;
+    padding: 2px;
+}
+
+/*改变所有出现的侧边栏*/
+/*::-webkit-scrollbar{*/
+    /*width: 10px;*/
+    /*height: 350px;*/
+    /*background: #2e2c6b;*/
+    /*border-radius: 5px;*/
+/*}*/
+/*::-webkit-scrollbar-thumb{*/
+    /*width: 15px;*/
+    /*height: 40px;*/
+    /*background: rgba(97,147,235,.5);*/
+    /*border-radius: 7.5px;*/
+    /*-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);*/
+    /*-moz-box-shadow: inset 0 0 6px rgba(0,0,0,.3);*/
+    /*box-shadow: inset 0 0 6px rgba(0,0,0,.3);*/
+/*}*/
+#historyMsg::-webkit-scrollbar{
+    width: 10px;
+    height: 350px;
+    background: #2e2c6b;
+    border-radius: 5px;
+}
+#historyMsg::-webkit-scrollbar-thumb{
+    width: 15px;
+    height: 40px;
+    background: rgba(97,147,235,.5);
+    border-radius: 7.5px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    -moz-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+}
+#historyMsg img {
+    /*max-width: 99%;*/
+    /*防止图片过大，最大只能以聊天框的99%来显示*/
+    max-width: 100px;
+}
+.timespan {
+    color: #ddd;
+}
+.items {
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+}
+#colorStyle {
+    width: 50px;
+    border: none;
+    padding: 0;
+}
+/*custom the file input*/
+
+.imageLable {
+    position: relative;
+}
+label{
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    overflow: hidden;
+}
+.icons{
+    display: inline-block;;
+}
+#sendImage {
+    position: absolute;
+    width: 24px;
+    left: 0;
+    opacity: 0;
+    overflow: hidden;
+}
+/*end custom file input*/
+
+#messageInput {
+    width: 440px;
+    max-width: 440px;
+    height: 90px;
+    max-height: 90px;
+}
+#sendBtn {
+    width: 50px;
+    height: 96px;
+    float: right;
+}
+#emojiWrapper {
+    display: none;
+    width: 500px;
+    bottom: 105px;
+    position: absolute;
+    background-color: #aaa;
+    box-shadow: 0 0 10px #555;
+}
+#emojiWrapper img {
+    margin: 2px;
+    padding: 2px;
+    width: 25px;
+    height: 25px;
+}
+#emojiWrapper img:hover {
+    background-color: blue;
+}
+.emoji{
+    display: inline;
+}
+footer {
+    text-align: center;
+}
+#emoji-wrap{
+    font-size: 12px;
+    font-family: Microsoft YaHei,Arial,Helvetica,sans-serif;
+    color: #99a2aa;
+    border: 1px solid #99a2aa;
+}
+#emoji-wraps{
+    display: none;
+    width: 500px;
+    bottom: 105px;
+    position: absolute;
+    color: #aaa;
+    box-shadow: 0 0 10px #555;
+}
+#emoji-wraps a:hover{
+    background: #fafafa;
+    opacity: .4;
+    cursor: pointer;
+}
+.mu-icon{
+    color: #2e2c6b;
+}
+
+
+/*表情包*/
+.icons{  display: inline-block;}
+#emoji{
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+/*颜色*/
+#colorStyle{
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    overflow: hidden;
+    position: relative;
+}
+#colorStyle .color{
+    width: 24px;
+    height: 24px;
+    margin: 0;
+    padding: 0;
+    border: none;
+    opacity: 0;
+    position: absolute;
+    z-index: 10;
+    cursor: pointer;
+}
+#colorStyle i{
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+/*颜文字样式*/
+#emoji-wrap{
+    display: inline-block;
+    height: 24px;
+    text-align: center;
+}
