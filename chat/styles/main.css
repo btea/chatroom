@@ -25,6 +25,44 @@ html, body {
 #nickWrapper {
     display: none;
 }
+#nicknameInput,#loginBtn{
+    -webkit-box-shadow: 1.5px 1.5px 5px rgba(0,219,181,.8),
+    -1.5px -1.5px 5px  rgba(0,219,181,.8);
+    -moz-box-shadow: 1.5px 1.5px 5px rgba(0,219,181,.8),
+    -1.5px -1.5px 5px  rgba(0,219,181,.8);
+    box-shadow: 1.5px 1.5px 5px rgba(0,219,181,.8),
+    -1.5px -1.5px 5px  rgba(0,219,181,.8);
+}
+#nicknameInput{
+    margin: 0;
+    border: none;
+    outline: none;
+    width: 200px;
+    height: 25px;
+}
+#nicknameInput::-webkit-input-placeholder{
+    color: rgba(0,219,181,.8);
+    font-size: 13px;
+}
+#nicknameInput:-moz-placeholder{
+    color: rgba(0,219,181,.8);
+    font-size: 13px;
+}
+#nicknameInput::-moz-placeholder{
+    color: rgba(0,219,181,.8);
+    font-size: 13px;
+}
+#nicknameInput:-ms-input-placeholder{
+    color: rgba(0,219,181,.8);
+    font-size: 13px;
+}
+#loginBtn{
+    height: 25px;
+    width: 40px;
+    background: white;
+    border: none;
+    color: rgba(0,219,181,.5);
+}
 .banner {
     height: 80px;
     width: 100%;
@@ -51,7 +89,7 @@ html, body {
     padding: 2px;
 }
 
-/*改变所有出现的侧边栏*/
+/*改变所有出现的侧边滚动栏*/
 /*::-webkit-scrollbar{*/
     /*width: 10px;*/
     /*height: 350px;*/
@@ -94,6 +132,7 @@ html, body {
     height: 30px;
     line-height: 30px;
     text-align: center;
+    position: relative;
 }
 #colorStyle {
     width: 50px;
@@ -162,6 +201,13 @@ footer {
     font-family: Microsoft YaHei,Arial,Helvetica,sans-serif;
     color: #99a2aa;
     border: 1px solid #99a2aa;
+    display: block;
+    width: 40px;
+    height: 24px;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
 }
 #emoji-wraps{
     display: none;
@@ -211,10 +257,4 @@ footer {
     position: absolute;
     top: 0;
     left: 0;
-}
-/*颜文字样式*/
-#emoji-wrap{
-    display: inline-block;
-    height: 24px;
-    text-align: center;
 }

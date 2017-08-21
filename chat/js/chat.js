@@ -3,16 +3,16 @@
  */
 window.onload = function(){
     //实例并初始化我们的HiChat程序
-    var hichat = new HiChat();
-    hichat.init();
+    var chat = new Chat();
+    chat.init();
 };
 //定义hichat类
-var HiChat = function(){
+var Chat = function(){
   this.socket = null;
 };
 
 //向原型添加业务方法
-HiChat.prototype = {
+Chat.prototype = {
     init:function(){  //此方法初始化程序
         var that = this;
         //建立服务器连接
@@ -20,7 +20,7 @@ HiChat.prototype = {
         //监听socket的connect事件，此事件表示连接已建立
         this.socket.on('connect',function(){
             //连接到服务器后，显示昵称输入框
-            document.getElementById('info').textContent = 'get yourself a nickname';
+            document.getElementById('info').textContent = '请输入你的昵称';
             document.getElementById('nickWrapper').style.display = 'block';
             document.getElementById('nicknameInput').focus();
         });
@@ -30,7 +30,6 @@ HiChat.prototype = {
 
             //检查昵称输入框是否为空
             if(nickname.trim().length != 0){
-                console.log((nickname.trim().length));
                 if(nickname.trim().length > 10){
                     alert('用户昵称长度不得超过十个字符！');
                 }else{
@@ -43,10 +42,10 @@ HiChat.prototype = {
             }
         },false);//绑定事件的第三个参数，就是控制事件出发顺序是否为事件捕获 true事件捕获，false事件冒泡
         this.socket.on('nickExisted',function(){
-            document.getElementById('info').textContent = '!nickname is token,choose another pls';//显示昵称被占用的提示
+            document.getElementById('info').textContent = '该昵称已被占用，请重新填写！';//显示昵称被占用的提示
         });
         this.socket.on('loginSuccess',function(){
-            document.title = 'hichat | ' + document.getElementById('nicknameInput').value;
+            document.title = 'chat | ' + document.getElementById('nicknameInput').value;
             document.getElementById('loginWrapper').style.display = 'none';//隐藏遮罩层显聊天界面
             document.getElementById('messageInput').focus();//让消息输入框获得焦点
         });

@@ -7,7 +7,7 @@ var express = require('express'),
     io = require('socket.io').listen(server),
     users = []  //保存所有在线用户的昵称
     ;
-app.use('/' , express.static(__dirname + '/chart'));
+app.use('/' , express.static(__dirname + '/chat'));
 //socket部分
 io.on('connection' , function(socket){
     //接收并处理客户端发送的login事件
