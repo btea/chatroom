@@ -1,0 +1,39 @@
+{
+    "name": "chatroom",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "dev": "vite",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/btea/chatroom.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/btea/chatroom/issues"
+    },
+    "homepage": "https://github.com/btea/chatroom#readme",
+    "dependencies": {
+        "@types/react": "^17.0.2",
+        "@types/react-dom": "^17.0.1",
+        "express": "^4.17.1",
+        "react": "^17.0.1",
+        "react-dom": "^17.0.1",
+        "socket.io": "^3.1.1"
+    },
+    "devDependencies": {
+        "@typescript-eslint/eslint-plugin": "^4.15.2",
+        "@typescript-eslint/parser": "^4.15.2",
+        "awesome-typescript-loader": "^5.2.1",
+        "eslint": "^7.20.0",
+        "eslint-plugin-react": "^7.22.0",
+        "source-map-loader": "^2.0.1",
+        "typescript": "^4.1.5",
+        "vite": "^2.0.2"
+    }
+}
