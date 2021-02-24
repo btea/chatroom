@@ -2,8 +2,6 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
 import { Hello } from './components/Hello';
+import { MainBox } from './App';
 
-ReactDOM.render(
-    <Hello compiler="typescript" framework="React"></Hello>,
-    document.getElementById('app')
-);
+ReactDOM.render(<MainBox />, document.getElementById('app'));
