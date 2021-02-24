@@ -8,7 +8,7 @@
         "dev": "vite",
         "lint:tsx": "eslint --ext .tsx src && eslint --ext .ts src",
         "lint:css": "stylelint --aei .css .less src",
-        "precommit": "lint-staged",
+        "precommit": "eslint src/**/*.{js,ts,tsx}",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "repository": {
