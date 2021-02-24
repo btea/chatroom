@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { ReactElement } from 'react';
+import { MainPanel } from './components/panelIn/MainPanel';
+import './app.css';
 
-export function MainBox() {
-    const [count, setCount] = useState(0);
+export function MainBox(): ReactElement {
     return (
-        <div>
-            <p>You clicked {count} times.</p>
-            <button onClick={() => setCount(count + 1)}>Click me</button>
+        <div className="main-in">
+            <MainPanel />
         </div>
     );
 }

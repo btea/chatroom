@@ -1,0 +1,27 @@
+html,
+body,
+#app {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+h1,
+h2,
+h3,
+p,
+ul,
+li,
+div,
+span,
+input {
+    box-sizing: border-box;
+}
+.main-in {
+    height: 100%;
+    background-image: url('./assets/img/2021-2233.webp'), url('./assets/img/2021-2233bg.webp');
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

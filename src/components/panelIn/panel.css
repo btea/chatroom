@@ -1,0 +1,6 @@
+.panel-box {
+    height: 300px;
+    width: 600px;
+    border-radius: 6px;
+    background-color: rgba(255, 255, 255, 0.4);
+}
