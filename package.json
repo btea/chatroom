@@ -4,7 +4,11 @@
     "description": "",
     "main": "index.js",
     "scripts": {
+        "start": "node start.js",
         "dev": "vite",
+        "lint:tsx": "eslint --ext .tsx src && eslint --ext .ts src",
+        "lint:css": "stylelint --aei .css .less src",
+        "precommit": "lint-staged",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "repository": {
@@ -27,13 +31,40 @@
         "socket.io": "^3.1.1"
     },
     "devDependencies": {
+        "@babel/cli": "^7.13.0",
+        "@babel/core": "^7.13.1",
+        "@babel/preset-env": "^7.13.5",
+        "@babel/preset-react": "^7.12.13",
         "@typescript-eslint/eslint-plugin": "^4.15.2",
         "@typescript-eslint/parser": "^4.15.2",
         "awesome-typescript-loader": "^5.2.1",
+        "babel-loader": "^8.2.2",
+        "css-loader": "^5.0.2",
         "eslint": "^7.20.0",
         "eslint-plugin-react": "^7.22.0",
+        "less": "^4.1.1",
+        "less-loader": "^8.0.0",
+        "lint-staged": "^10.5.4",
+        "pre-commit": "^1.2.2",
+        "prettier": "^2.2.1",
         "source-map-loader": "^2.0.1",
+        "style-loader": "^2.0.0",
+        "stylelint": "^13.11.0",
+        "stylelint-config-prettier": "^8.0.2",
+        "stylelint-config-standard": "^20.0.0",
         "typescript": "^4.1.5",
         "vite": "^2.0.2"
+    },
+    "lint-staged": {
+        "*.{js,jsx,ts,tsx}": [
+            "eslint --fix",
+            "prettier --write",
+            "git add"
+        ],
+        "*.{css,less}": [
+            "stylelint --fix",
+            "prettier --write",
+            "git add"
+        ]
     }
 }
