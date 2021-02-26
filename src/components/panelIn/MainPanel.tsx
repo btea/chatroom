@@ -21,10 +21,12 @@ export function MainPanel(): ReactElement {
         <div className="panel-box">
             <label htmlFor="avatar" className="avatar-box">
                 <input type="file" name="avatar" id="avatar" onChange={avatar} />
-                <div className="avatar-con">
-                    <img src={src} alt="" />
-                </div>
+                <div className="avatar-con" style={{ backgroundImage: `url(${src})` }}></div>
             </label>
+            <div className="nick">
+                <input type="text" className="nick-input" />
+                <div className="line"></div>
+            </div>
         </div>
     );
 }
