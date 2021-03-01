@@ -1,0 +1,65 @@
+.panel-box {
+    height: 300px;
+    width: 600px;
+    border-radius: 6px;
+    background-color: rgba(255, 255, 255, 0.4);
+    .avatar,
+    .avatar-box {
+        display: block;
+        margin: 50px auto;
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.6);
+        cursor: pointer;
+        overflow: hidden;
+        border: 2px solid #6cf;
+    }
+    .avatar-box {
+        input {
+            position: absolute;
+            z-index: -1;
+            opacity: 0;
+        }
+    }
+    .avatar-con {
+        width: 100px;
+        height: 100px;
+        background-repeat: no-repeat;
+        background-size: cover;
+        img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+    }
+    .nick {
+        text-align: center;
+        width: 200px;
+        margin: 0 auto;
+        position: relative;
+        .nick-input {
+            width: 200px;
+            height: 35px;
+            border-radius: 5px;
+            outline: none;
+            border: none;
+            background-color: rgba(255, 255, 255, 0.4);
+            color: #6cf;
+            text-align: center;
+            position: relative;
+            &:focus + .line {
+                left: 0;
+                right: 0;
+            }
+        }
+    }
+    .line {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        right: 50%;
+        height: 2px;
+        background: #6cf;
+        transition: all 0.5s;
+    }
+}

@@ -1,5 +1,5 @@
 import React, { ChangeEvent, ReactElement, useState } from 'react';
-import './panel.css';
+import styles from './panel.module.less';
 
 export function MainPanel(): ReactElement {
     const [src, setSrc] = useState('');
@@ -18,14 +18,17 @@ export function MainPanel(): ReactElement {
     };
 
     return (
-        <div className="panel-box">
-            <label htmlFor="avatar" className="avatar-box">
-                <input type="file" name="avatar" id="avatar" onChange={avatar} />
-                <div className="avatar-con" style={{ backgroundImage: `url(${src})` }}></div>
+        <div className={styles['panel-box']}>
+            <label htmlFor={styles.avatar} className={styles['avatar-box']}>
+                <input type="file" name="avatar" id={styles.avatar} onChange={avatar} />
+                <div
+                    className={styles['avatar-con']}
+                    style={{ backgroundImage: `url(${src})` }}
+                ></div>
             </label>
-            <div className="nick">
-                <input type="text" className="nick-input" />
-                <div className="line"></div>
+            <div className={styles.nick}>
+                <input type="text" className={styles['nick-input']} />
+                <div className={styles.line}></div>
             </div>
         </div>
     );
