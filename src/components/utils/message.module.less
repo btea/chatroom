@@ -1,0 +1,21 @@
+.msg-box {
+    position: fixed;
+    z-index: 10;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 0;
+    padding: 10px 25px;
+    border-radius: 3px;
+    color: #fff;
+    font-size: 14px;
+    max-width: 300px;
+    transition: all 1.5s;
+    opacity: 0;
+    &.show {
+        top: 100px;
+        opacity: 1;
+    }
+    &.info {
+        background: #66ccffcf;
+    }
+}

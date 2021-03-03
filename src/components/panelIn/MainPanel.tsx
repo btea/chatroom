@@ -1,8 +1,23 @@
-import React, { ChangeEvent, ReactElement, useState } from 'react';
+import React, { ChangeEvent, ReactElement, useState, useEffect } from 'react';
 import styles from './panel.module.less';
+import Message from '../utils/Message';
 
 export function MainPanel(): ReactElement {
     const [src, setSrc] = useState('');
+    const [focus, setFocus] = useState(false);
+    const [showTip, setShowTip] = useState(true);
+
+    useEffect(() => {
+        const handle = () => {
+            if (focus) {
+                console.log('路由跳转');
+            }
+        };
+        document.addEventListener('keyup', handle);
+        return () => {
+            document.removeEventListener('keyup', handle);
+        };
+    });
 
     const avatar = (e: ChangeEvent) => {
         const el = e.target as HTMLInputElement;
@@ -27,9 +42,19 @@ export function MainPanel(): ReactElement {
                 ></div>
             </label>
             <div className={styles.nick}>
-                <input type="text" className={styles['nick-input']} />
+                <input
+                    type="text"
+                    className={styles['nick-input']}
+                    onFocus={() => {
+                        setFocus(true);
+                    }}
+                    onBlur={() => {
+                        setFocus(false);
+                    }}
+                />
                 <div className={styles.line}></div>
             </div>
+            {showTip && <Message msg="这是一条提示"></Message>}
         </div>
     );
 }
