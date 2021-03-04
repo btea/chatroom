@@ -1,16 +1,20 @@
 import React, { ChangeEvent, ReactElement, useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import styles from './panel.module.less';
 import Message from '../utils/Message';
 
 export function MainPanel(): ReactElement {
     const [src, setSrc] = useState('');
     const [focus, setFocus] = useState(false);
-    const [showTip, setShowTip] = useState(true);
-
+    const [showTip, setShowTip] = useState(false);
+    const history = useHistory();
     useEffect(() => {
-        const handle = () => {
-            if (focus) {
-                console.log('路由跳转');
+        const handle = (e: KeyboardEvent) => {
+            if (e.key !== 'Enter') {
+                return;
+            }
+            if (focus && src) {
+                history.push('/main');
             }
         };
         document.addEventListener('keyup', handle);

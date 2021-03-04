@@ -4,6 +4,9 @@ body,
     margin: 0;
     padding: 0;
     height: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url('./assets/img/2021-2233.webp'), url('./assets/img/2021-2233bg.webp');
 }
 h1,
 h2,
@@ -18,9 +21,6 @@ input {
 }
 .main-in {
     height: 100%;
-    background-image: url('./assets/img/2021-2233.webp'), url('./assets/img/2021-2233bg.webp');
-    background-repeat: no-repeat;
-    background-size: cover;
     display: flex;
     align-items: center;
     justify-content: center;
