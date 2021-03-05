@@ -58,6 +58,7 @@ export function MainPanel(): ReactElement {
                 />
                 <div className={styles.line}></div>
             </div>
+            {/* <div className={styles['login-btn']}>加入</div> */}
             {showTip && <Message msg="这是一条提示"></Message>}
         </div>
     );
