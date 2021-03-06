@@ -6,7 +6,7 @@ interface person {
     name: string;
     avatar: string;
     id: string;
-    word: '';
+    word: string;
 }
 
 export default function FriendList(): ReactElement {
