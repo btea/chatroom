@@ -3,7 +3,7 @@ import styles from './friends.module.less';
 
 interface avatar {
     avatar: string;
-    changeShow: SetStateAction;
+    changeShow: (type: boolean) => void;
 }
 
 export default function ShowAvatar(props: avatar): ReactElement {
