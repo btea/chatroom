@@ -1,4 +1,4 @@
-import React, { ReactElement, SetStateAction } from 'react';
+import React, { ReactElement } from 'react';
 import styles from './friends.module.less';
 
 interface avatar {

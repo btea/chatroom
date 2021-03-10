@@ -1,6 +1,5 @@
 import React, { ReactElement, useEffect } from 'react';
 import styles from './message.module.less';
-console.log(styles);
 
 interface MessageProps {
     msg: string;
