@@ -6,23 +6,31 @@ import styles from './main.module.less';
 import startLink from './socket';
 
 export default function Main(): ReactElement {
-    const [news, setNews] = useState('');
-    let ws;
-    useEffect(() => {
+    const val: Array<string> = [];
+    const [news, setNews] = useState(val);
+    const [wsObj, setObj] = useState(WebSocket.prototype);
+    const init = () => {
         const path = `ws://${location.hostname}:2333`;
-        ws = startLink(path);
+        const ws = startLink(path);
         ws.onopen = () => {
             console.log('link');
         };
         ws.onmessage = evt => {
             console.log(evt);
             const message = evt.data;
-            setNews(message);
+            console.log(news);
+            const n_s = [...news, message];
+            console.log(n_s);
+            setNews(n_s);
         };
         ws.onclose = () => {
             console.log('close');
         };
-    });
+        setObj(ws);
+    };
+    useEffect(() => {
+        init();
+    }, []);
     return (
         <div className={styles['main-con']}>
             <div className={styles['main-chat-model']}>
@@ -31,7 +39,7 @@ export default function Main(): ReactElement {
                 </div>
                 <div className={styles['right-chat-box']}>
                     <NewsShow info={news}></NewsShow>
-                    <SendMsg></SendMsg>
+                    <SendMsg ws={wsObj}></SendMsg>
                 </div>
             </div>
         </div>

@@ -2,16 +2,21 @@ import React, { ReactElement } from 'react';
 import styles from './newsshow.module.less';
 
 interface news {
-    info: string;
+    info: Array<string>;
 }
 
 export default function NewsShow(props: news): ReactElement {
     const { info } = props;
     return (
         <div className={styles['news-show']}>
-            <div className={styles['content-box']}>
-                <div className={styles['news-box']}>{info}</div>
-            </div>
+            {info &&
+                info.map((news, i) => {
+                    return (
+                        <div className={styles['content-box']} key={i}>
+                            <div className={styles['news-box']}>{news}</div>
+                        </div>
+                    );
+                })}
         </div>
     );
 }
