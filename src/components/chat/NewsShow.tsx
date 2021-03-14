@@ -12,7 +12,7 @@ export default function NewsShow(props: news): ReactElement {
             {info &&
                 info.map((news, i) => {
                     return (
-                        <div className={styles['content-box']} key={i}>
+                        <div className={styles['content-box'] + ' ' + styles['left']} key={i}>
                             <div className={styles['news-box']}>{news}</div>
                         </div>
                     );

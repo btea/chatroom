@@ -5,31 +5,34 @@ import FriendList from '../friends/FriendList';
 import styles from './main.module.less';
 import startLink from './socket';
 
-export default function Main(): ReactElement {
-    const val: Array<string> = [];
-    const [news, setNews] = useState(val);
-    const [wsObj, setObj] = useState(WebSocket.prototype);
-    const init = () => {
-        const path = `ws://${location.hostname}:2333`;
-        const ws = startLink(path);
-        ws.onopen = () => {
-            console.log('link');
-        };
-        ws.onmessage = evt => {
-            console.log(evt);
-            const message = evt.data;
-            console.log(news);
-            const n_s = [...news, message];
-            console.log(n_s);
-            setNews(n_s);
-        };
-        ws.onclose = () => {
-            console.log('close');
-        };
-        setObj(ws);
+function link() {
+    const path = `ws://${location.hostname}:2333`;
+    const ws = startLink(path);
+    ws.onopen = () => {
+        console.log('link');
     };
+
+    ws.onclose = () => {
+        console.log('close');
+    };
+    return ws;
+}
+
+export default function Main(): ReactElement {
+    const [news, setNews] = useState<Array<string>>([]);
+    const [wsObj, setObj] = useState(WebSocket.prototype);
+    let list: Array<string> = [];
     useEffect(() => {
-        init();
+        const ws = link();
+        setObj(ws);
+        ws.onmessage = evt => {
+            console.log(list);
+            const message = evt.data;
+            list = [...list, message];
+            // console.log(n_s);
+            setNews(list);
+            console.log(message);
+        };
     }, []);
     return (
         <div className={styles['main-con']}>

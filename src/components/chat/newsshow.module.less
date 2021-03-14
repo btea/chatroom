@@ -4,8 +4,21 @@
     flex: 1;
     padding: 15px;
     .content-box {
+        margin: 15px 0;
+        position: relative;
         &.left {
             text-align: left;
+            .news-box::before {
+                position: absolute;
+                left: -20px;
+                top: 50%;
+                content: '';
+                border: 10px solid;
+                margin-top: -10px;
+                width: 0;
+                height: 0;
+                border-color: transparent #6cf transparent transparent;
+            }
         }
         &.right {
             text-align: right;
@@ -17,5 +30,6 @@
         color: #000;
         background: #6cf;
         display: inline-block;
+        position: relative;
     }
 }
