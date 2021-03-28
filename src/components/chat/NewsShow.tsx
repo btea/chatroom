@@ -26,7 +26,13 @@ export default function NewsShow(props: news): ReactElement {
                 info.map((news, i) => {
                     return (
                         <div className={styles['content-box'] + ' ' + styles['left']} key={i}>
-                            <div className={styles['avatar']}></div>
+                            <div className={styles['avatar']}>
+                                <img
+                                    className={styles['avatar-img']}
+                                    src="https://pic.rmb.bdstatic.com/f6794743b48dc2a0142ae2462c4b6f7f.jpeg"
+                                    alt=""
+                                />
+                            </div>
                             <div className={styles['news-box']}>{news}</div>
                         </div>
                     );
