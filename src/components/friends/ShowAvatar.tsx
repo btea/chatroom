@@ -17,7 +17,13 @@ export default function ShowAvatar(props: avatar): ReactElement {
             }}
         >
             <div className={styles['avatar-box']}>
-                <img src={avatar} alt="avatar" />
+                <img
+                    src={avatar}
+                    alt="avatar"
+                    onClick={e => {
+                        e.stopPropagation();
+                    }}
+                />
             </div>
         </div>
     );
