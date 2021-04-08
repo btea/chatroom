@@ -37,7 +37,7 @@ Object.defineProperty(Date.prototype, 'format', {
 function addZero(v: number, add: boolean = true): string {
     let _v = String(v);
     if (add) {
-        _v += '0';
+        _v = '0' + _v;
     }
     return _v.slice(-2);
 }
