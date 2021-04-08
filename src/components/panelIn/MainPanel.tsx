@@ -6,11 +6,14 @@ import Message from '../utils/Message';
 export function MainPanel(): ReactElement {
     const [src, setSrc] = useState('');
     const [focus, setFocus] = useState(false);
-    const [showTip, setShowTip] = useState(false);
     const history = useHistory();
     useEffect(() => {
         const handle = (e: KeyboardEvent) => {
             if (e.key !== 'Enter') {
+                return;
+            }
+            if (!src) {
+                Message({ msg: '请先添加头像' });
                 return;
             }
             if (focus && src) {
@@ -59,7 +62,6 @@ export function MainPanel(): ReactElement {
                 <div className={styles.line}></div>
             </div>
             {/* <div className={styles['login-btn']}>加入</div> */}
-            {showTip && <Message msg="这是一条提示"></Message>}
         </div>
     );
 }

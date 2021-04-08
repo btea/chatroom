@@ -1,4 +1,3 @@
-import React, { ReactElement, useEffect } from 'react';
 import styles from './message.module.less';
 
 interface MessageProps {
@@ -8,14 +7,19 @@ interface MessageProps {
     type?: number;
 }
 
-export default function Message(props: MessageProps): ReactElement {
+export default function Message(props: MessageProps): void {
     const type = props.type || 'info';
     let boxName = styles['msg-box'] + ' ' + styles[type] + ' ' + styles['show'];
-    useEffect(() => {
+    const duration = props.duration || 3000;
+    const div = document.createElement('div');
+    div.innerText = props.msg;
+    div.className = boxName;
+    setTimeout(() => {
+        boxName = styles['msg-box'] + ' ' + styles[type];
+        div.className = boxName;
         setTimeout(() => {
-            boxName = styles['msg-box'] + ' ' + styles[type];
-        });
-    });
-
-    return <div className={boxName}>{props.msg}</div>;
+            document.body.appendChild(div);
+        }, 1000);
+    }, duration);
+    document.body.appendChild(div);
 }
