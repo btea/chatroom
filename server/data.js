@@ -4,23 +4,24 @@
  */
 
 let DataStore = require('nedb');
-let db = new DataStore();
+let db = new DataStore({ filename: './info/userInfo', autoload: true });
 
 // 添加/保存信息
-export function addInfo(info) {
+function addInfo(info) {
     return new Promise(function (resolve, reject) {
         db.insert(info, function (err, newDoc) {
             if (err) {
                 reject(err);
             } else {
                 resolve(newDoc);
+                console.log(newDoc);
             }
         });
     });
 }
 
 // 删除信息
-export function removeInfo(info) {
+function removeInfo(info) {
     return new Promise(function (resolve, reject) {
         // db.remove(info, {multi: true}) 删除多条
         db.remove(info, {}, function (err, numRemoved) {
@@ -34,7 +35,7 @@ export function removeInfo(info) {
 }
 
 // 搜索/查询信息
-export function searchInfo(condition) {
+function searchInfo(condition) {
     return new Promise(function (resolve, reject) {
         db.find(condition, function (err, docs) {
             if (err) {
@@ -47,7 +48,7 @@ export function searchInfo(condition) {
 }
 
 // 更新信息
-export function updateInfo(info) {
+function updateInfo(info) {
     return new Promise(function (resolve, reject) {
         db.update(info, function (err, numReplaced) {
             if (err) {
@@ -58,3 +59,10 @@ export function updateInfo(info) {
         });
     });
 }
+
+module.exports = {
+    addInfo,
+    removeInfo,
+    updateInfo,
+    searchInfo
+};
