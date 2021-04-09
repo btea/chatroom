@@ -13,8 +13,8 @@ function parseParams(req, res) {
     });
     req.on('end', () => {
         // console.log(params);
+        list[url](params, res);
     });
-    list[url](params, res);
 }
 
 /**

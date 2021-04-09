@@ -3,25 +3,24 @@
  *
  */
 
-let DataStore = require('nedb');
-let db = new DataStore({ filename: './info/userInfo', autoload: true });
+// let DataStore = require('nedb');
+// let db = new DataStore({ filename: './info/userInfo', autoload: true });
 
 // 添加/保存信息
-function addInfo(info) {
+function addInfo(db, info) {
     return new Promise(function (resolve, reject) {
         db.insert(info, function (err, newDoc) {
             if (err) {
                 reject(err);
             } else {
                 resolve(newDoc);
-                console.log(newDoc);
             }
         });
     });
 }
 
 // 删除信息
-function removeInfo(info) {
+function removeInfo(db, info) {
     return new Promise(function (resolve, reject) {
         // db.remove(info, {multi: true}) 删除多条
         db.remove(info, {}, function (err, numRemoved) {
@@ -35,7 +34,7 @@ function removeInfo(info) {
 }
 
 // 搜索/查询信息
-function searchInfo(condition) {
+function searchInfo(db, condition) {
     return new Promise(function (resolve, reject) {
         db.find(condition, function (err, docs) {
             if (err) {
@@ -48,7 +47,7 @@ function searchInfo(condition) {
 }
 
 // 更新信息
-function updateInfo(info) {
+function updateInfo(db, info) {
     return new Promise(function (resolve, reject) {
         db.update(info, function (err, numReplaced) {
             if (err) {

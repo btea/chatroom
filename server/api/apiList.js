@@ -1,3 +1,7 @@
+const startLink = require('../linkdb');
+const dataDeal = require('../data');
+const resDeal = require('./util');
+
 /**
  * 返回默认的接口请求数据
  * @param params 请求参数
@@ -11,10 +15,50 @@ function defaultResponse(params, res) {
 /**
  * 注册账号接口
  */
+function registerUser(params, res) {
+    if (params) {
+        params = JSON.parse(params);
+    }
+    const db = startLink('userInfo');
+
+    dataDeal.searchInfo(db, params).then(val => {
+        if (val && val.length) {
+            resDeal.successRes(res, '该用户已被注册');
+            return;
+        }
+        dataDeal
+            .addInfo(db, params)
+            .then(val => {
+                resDeal.successRes(res, '注册成功');
+            })
+            .catch(err => {
+                resDeal.failureRes(res, '注册失败');
+            });
+    });
+}
 
 /**
  * 登录修改
  */
+function login(params, res) {
+    if (params) {
+        params = JSON.parse(params);
+    }
+    const db = startLink('userInfo');
+    dataDeal
+        .searchInfo(db, params)
+        .then(val => {
+            console.log(val);
+            if (!val.length) {
+                resDeal.successRes(res, '该用户未注册');
+            } else {
+                resDeal.successRes(res, '登录成功');
+            }
+        })
+        .catch(err => {
+            resDeal.failureRes(res, '登录失败');
+        });
+}
 
 /**
  * 修改用户名、密码
@@ -57,5 +101,7 @@ function defaultResponse(params, res) {
  */
 
 module.exports = {
-    '/': defaultResponse
+    '/': defaultResponse,
+    '/register': registerUser,
+    '/login': login
 };
