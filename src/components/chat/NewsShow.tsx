@@ -11,32 +11,37 @@ export default function NewsShow(props: news): ReactElement {
     useEffect(() => {
         if (el.current) {
             const _el = (el.current as unknown) as HTMLElement;
-            const _last = _el.lastChild as HTMLElement;
-            if (_last) {
-                _last.scrollIntoView({
-                    block: 'end',
-                    behavior: 'smooth'
-                });
-            }
+            // const _last = _el.lastChild as HTMLElement;
+            // if (_last) {
+            // _last.scrollIntoView({
+            // block: 'end',
+            // behavior: 'smooth'
+            // });
+            // }
+            _el.scrollIntoView({
+                block: 'end'
+            });
         }
     });
     return (
-        <div className={styles['news-show']} ref={el}>
-            {info &&
-                info.map((news, i) => {
-                    return (
-                        <div className={styles['content-box'] + ' ' + styles['left']} key={i}>
-                            <div className={styles['avatar']}>
-                                <img
-                                    className={styles['avatar-img']}
-                                    src="https://pic.rmb.bdstatic.com/f6794743b48dc2a0142ae2462c4b6f7f.jpeg"
-                                    alt=""
-                                />
+        <div className={styles['news-show']}>
+            <div className={styles['news-container']} ref={el}>
+                {info &&
+                    info.map((news, i) => {
+                        return (
+                            <div className={styles['content-box'] + ' ' + styles['left']} key={i}>
+                                <div className={styles['avatar']}>
+                                    <img
+                                        className={styles['avatar-img']}
+                                        src="https://pic.rmb.bdstatic.com/f6794743b48dc2a0142ae2462c4b6f7f.jpeg"
+                                        alt=""
+                                    />
+                                </div>
+                                <div className={styles['news-box']}>{news}</div>
                             </div>
-                            <div className={styles['news-box']}>{news}</div>
-                        </div>
-                    );
-                })}
+                        );
+                    })}
+            </div>
         </div>
     );
 }
