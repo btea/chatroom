@@ -6,7 +6,7 @@ import styles from './main.module.less';
 import startLink from './socket';
 
 function link() {
-    const path = `ws://${location.hostname}:2333`;
+    const path = `ws://${location.hostname}:2233`;
     const ws = startLink(path);
     ws.onopen = () => {
         console.log('link');
