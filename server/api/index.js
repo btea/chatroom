@@ -1,3 +1,5 @@
+const list = require('./apiList');
+
 /**
  * 解析请求参数
  * @param req 请求实例
@@ -10,8 +12,9 @@ function parseParams(req, res) {
         params += chunk;
     });
     req.on('end', () => {
-        console.log(params);
+        // console.log(params);
     });
+    list[url](params, res);
 }
 
 /**
@@ -22,4 +25,4 @@ function parseParams(req, res) {
  */
 // function startSign(name, avatar, id) {}
 
-module.exports = {};
+module.exports = parseParams;
