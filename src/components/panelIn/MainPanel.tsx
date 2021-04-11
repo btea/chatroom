@@ -6,6 +6,7 @@ import Message from '../utils/Message';
 export function MainPanel(): ReactElement {
     const [src, setSrc] = useState('');
     const [focus, setFocus] = useState(false);
+    const [register, setRegister] = useState(false);
     const history = useHistory();
     useEffect(() => {
         const handle = (e: KeyboardEvent) => {
@@ -40,7 +41,9 @@ export function MainPanel(): ReactElement {
     };
 
     return (
-        <div className={styles['panel-box']}>
+        <div
+            className={register ? styles['panel-box'] + ' ' + styles['back'] : styles['panel-box']}
+        >
             <label htmlFor={styles.avatar} className={styles['avatar-box']}>
                 <input type="file" name="avatar" id={styles.avatar} onChange={avatar} />
                 <div
@@ -60,6 +63,17 @@ export function MainPanel(): ReactElement {
                     }}
                 />
                 <div className={styles.line}></div>
+            </div>
+            <div className={styles['btns']}>
+                <button className={styles['login']}>登录</button>
+                <button
+                    className={styles['register']}
+                    onClick={() => {
+                        setRegister(true);
+                    }}
+                >
+                    注册
+                </button>
             </div>
             {/* <div className={styles['login-btn']}>加入</div> */}
         </div>
