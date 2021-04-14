@@ -1,2 +1,47 @@
-.resister-box {
+@inputH: 40px;
+@inputW: 250px;
+@font: 16px;
+@bg: rgba(255, 255, 255, 0.3);
+.initbtns {
+    background: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+.initinput {
+    background: none;
+    border: none;
+    outline: none;
+}
+.register-box {
+    width: 500px;
+    height: 300px;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.3);
+    padding: 50px 0;
+    text-align: center;
+    .nickname {
+    }
+    .password {
+    }
+    .btns {
+        .btn-text {
+            .initbtns();
+            padding: 5px 15px;
+            border-radius: 3px;
+            background: @bg;
+            margin-top: 20px;
+        }
+    }
+    .input {
+        .initinput();
+        height: @inputH;
+        line-height: @inputH;
+        padding: 0 15px;
+        border-radius: 3px;
+        width: @inputW;
+        background: rgba(255, 255, 255, 0.3);
+        margin: 15px auto;
+        font-size: @font;
+    }
 }
