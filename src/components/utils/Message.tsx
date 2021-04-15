@@ -4,7 +4,7 @@ interface MessageProps {
     msg: string;
     duration?: number;
     color?: number;
-    type?: number;
+    type?: string;
 }
 
 export default function Message(props: MessageProps): void {
