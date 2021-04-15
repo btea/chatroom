@@ -8,7 +8,7 @@ export function login(params: params): Promise<unknown> {
     return request({
         url: '/login',
         method: 'post',
-        params
+        data: params
     });
 }
 
@@ -16,6 +16,6 @@ export function register(params: params): Promise<unknown> {
     return request({
         url: '/register',
         method: 'post',
-        params
+        data: params
     });
 }
