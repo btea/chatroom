@@ -13,7 +13,11 @@ function parseParams(req, res) {
     });
     req.on('end', () => {
         // console.log(params);
-        list[url](params, res);
+        const handle = list[url];
+        if (!handle) {
+            handle = list['404'];
+        }
+        handle(params, res);
     });
 }
 

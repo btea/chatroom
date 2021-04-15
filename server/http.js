@@ -34,7 +34,9 @@ server.on('upgrade', function (request, socket, head) {
 });
 server.on('request', function (request, response) {
     response.setHeader('Access-Control-Allow-Origin', '*');
-    response.setHeader('Content-Type', 'text/html;charset=utf-8');
+    response.setHeader('Access-Control-Allow-Methods', '*');
+    response.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    response.setHeader('Access-Control-Expose-Headers', '*');
     api(request, response);
 });
 server.listen(2233);

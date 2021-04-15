@@ -5,11 +5,24 @@ const resDeal = require('./util');
 /**
  * 返回默认的接口请求数据
  * @param params 请求参数
- * @param res 相应对象
+ * @param res 响应对象
  */
 function defaultResponse(params, res) {
     const content = 'hello world';
     res.end(content);
+}
+
+/**
+ * 没有找到对应的请求路径时处理返回
+ * @param params 请求参数
+ * @param res 响应对象
+ */
+function notFound(params, res) {
+    const params = {
+        code: 404,
+        msg: '该请求接口不存在。'
+    };
+    res.end(JSON.stringify(params));
 }
 
 /**
@@ -48,7 +61,6 @@ function login(params, res) {
     dataDeal
         .searchInfo(db, params)
         .then(val => {
-            console.log(val);
             if (!val.length) {
                 resDeal.successRes(res, '该用户未注册');
             } else {
@@ -103,5 +115,6 @@ function login(params, res) {
 module.exports = {
     '/': defaultResponse,
     '/register': registerUser,
-    '/login': login
+    '/login': login,
+    404: notFound
 };
