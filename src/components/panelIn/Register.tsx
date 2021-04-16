@@ -1,6 +1,6 @@
 import React, { ReactElement, useRef } from 'react';
 import { register } from '../../http/http';
-import Message from '../utils/Message';
+import Message from '../../utils/Message';
 import styles from './register.module.less';
 // 用户注册模块
 

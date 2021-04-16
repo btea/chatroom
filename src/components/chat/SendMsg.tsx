@@ -1,6 +1,6 @@
 import React, { ReactElement, useState, useRef, useEffect } from 'react';
 import styles from './sendmsg.module.less';
-import Message from '../utils/Message';
+import Message from '../../utils/Message';
 
 interface sendMsg {
     ws: WebSocket;

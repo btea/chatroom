@@ -1,7 +1,7 @@
 import React, { ChangeEvent, ReactElement, useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import styles from './panel.module.less';
-import Message from '../utils/Message';
+import Message from '../../utils/Message';
 
 export function MainPanel(): ReactElement {
     const [src, setSrc] = useState('');
