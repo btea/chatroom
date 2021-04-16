@@ -8,7 +8,6 @@
         "dev": "vite",
         "lint:tsx": "eslint --ext .tsx src && eslint --ext .ts src",
         "lint:css": "stylelint --aei .css .less src",
-        "precommit": "eslint src/**/*.{js,ts,tsx}",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "repository": {
@@ -62,7 +61,8 @@
     },
     "husky": {
         "hooks": {
-            "pre-commit": "lint-staged"
+            "pre-commit": "lint-staged",
+            "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
         }
     },
     "lint-staged": {
