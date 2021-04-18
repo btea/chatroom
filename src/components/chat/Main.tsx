@@ -2,6 +2,7 @@ import React, { ReactElement, useEffect, useState } from 'react';
 import SendMsg from './SendMsg';
 import NewsShow from './NewsShow';
 import FriendList from '../friends/FriendList';
+import SetList from './SetList';
 import styles from './main.module.less';
 import startLink from './socket';
 
@@ -38,6 +39,7 @@ export default function Main(): ReactElement {
         <div className={styles['main-con']}>
             <div className={styles['main-chat-model']}>
                 <div className={styles['left-chat-list']}>
+                    <SetList></SetList>
                     <FriendList></FriendList>
                 </div>
                 <div className={styles['right-chat-box']}>
