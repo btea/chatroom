@@ -20,16 +20,29 @@ function link() {
 }
 
 export default function Main(): ReactElement {
-    const [news, setNews] = useState<Array<string>>([]);
+    const [news, setNews] = useState<Array<InfoType.info>>([]);
     const [wsObj, setObj] = useState(WebSocket.prototype);
-    let list: Array<string> = [];
+    let list: Array<InfoType.info> = [];
     useEffect(() => {
         const ws = link();
         setObj(ws);
         ws.onmessage = evt => {
             console.log(list);
             const message = evt.data;
-            list = [...list, message];
+            const info = {
+                from: {
+                    id: 1,
+                    name: '徐念'
+                },
+                to: {
+                    id: 2,
+                    name: '李药师'
+                },
+                time: Date.now(),
+                type: 'text',
+                content: message
+            }
+            list = [...list, info];
             // console.log(n_s);
             setNews(list);
             console.log(message);

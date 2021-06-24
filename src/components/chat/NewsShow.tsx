@@ -1,12 +1,23 @@
 import React, { ReactElement, useEffect, useRef } from 'react';
 import styles from './newsshow.module.less';
-
+import text from './messages/Text'
 interface news {
-    info: Array<string>;
+    info: Array<InfoType.info>;
 }
 
 export default function NewsShow(props: news): ReactElement {
     const { info } = props;
+    const types = {
+        'text': 'Text',
+        'audio': 'Audio',
+        'image': 'Image',
+        'other': 'Other'
+    }
+    const type = 'text';
+    let src = types[type] || 'Other'
+    const MsgBox = require(`./messages/${src}`).default;
+
+
     const el = useRef(null);
     useEffect(() => {
         if (el.current) {
@@ -37,7 +48,9 @@ export default function NewsShow(props: news): ReactElement {
                                         alt=""
                                     />
                                 </div>
-                                <div className={styles['news-box']}>{news}</div>
+                                <div className={styles['news-box']}>
+                                    <MsgBox {...news}></MsgBox>
+                                </div>
                             </div>
                         );
                     })}
