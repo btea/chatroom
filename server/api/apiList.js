@@ -18,7 +18,7 @@ function defaultResponse(params, res) {
  * @param res 响应对象
  */
 function notFound(params, res) {
-    const params = {
+    params = {
         code: 404,
         msg: '该请求接口不存在。'
     };

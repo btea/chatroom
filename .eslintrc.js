@@ -19,6 +19,8 @@ module.exports = {
     },
     plugins: ['react', '@typescript-eslint'],
     rules: {
-        '@typescript-eslint/no-var-requires': 0
+        '@typescript-eslint/no-var-requires': 0,
+        '@typescript-eslint/no-empty-function': 0,
+        '@typescript-eslint/no-unused-vars': 0
     }
 };
