@@ -15,19 +15,18 @@ declare module '*.module.less' {
  * https://blog.csdn.net/qq_24147051/article/details/109746127
  */
 
-declare namespace InfoType{
-    export interface info{
+declare namespace InfoType {
+    export interface info {
         from: {
-            id: number | string,
-            name: string
-        },
+            id: number | string;
+            name: string;
+        };
         to: {
-            id: number | string,
-            name: string
-        },
-        time: number | string | Date,
-        type: string,
-        content: string | Blob
+            id: number | string;
+            name: string;
+        };
+        time: number | string | Date;
+        type: string;
+        content: string | Blob | Buffer;
     }
-
 }
