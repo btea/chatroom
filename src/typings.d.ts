@@ -10,6 +10,10 @@ declare module '*.module.less' {
     };
     export default classes;
 }
+
+declare module '@btea/utils' {
+    export const randomColor = (): string => string;
+}
 /**
  * 解决在tsx中引入module.less或者module.scss找不到模块的警告，在此声明模块类型
  * https://blog.csdn.net/qq_24147051/article/details/109746127

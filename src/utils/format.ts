@@ -34,7 +34,7 @@ Object.defineProperty(Date.prototype, 'format', {
  * @param add 是否补充0，默认补充
  * @return 字符串
  */
-function addZero(v: number, add: boolean = true): string {
+function addZero(v: number, add = true): string {
     let _v = String(v);
     if (add) {
         _v = '0' + _v;
