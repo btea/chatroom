@@ -1,6 +1,6 @@
-import React, { ReactElement, useEffect, useRef } from 'react';
+import React, { ReactElement, Suspense, useEffect, useRef } from 'react';
 import styles from './newsshow.module.less';
-import text from './messages/Text'
+import text from './messages/Text';
 interface news {
     info: Array<InfoType.info>;
 }
@@ -8,16 +8,16 @@ interface news {
 export default function NewsShow(props: news): ReactElement {
     const { info } = props;
     const types = {
-        'text': 'Text',
-        'audio': 'Audio',
-        'image': 'Image',
-        'other': 'Other'
-    }
+        text: 'Text',
+        audio: 'Audio',
+        image: 'Image',
+        other: 'Other'
+    };
     const type = 'text';
-    let src = types[type] || 'Other'
-    const MsgBox = require(`./messages/${src}`).default;
-
-
+    const src = types[type] || 'Other';
+    const MsgBox = React.lazy(() => {
+        return import(/* @vite-ignore */ `./messages/${src}`);
+    });
     const el = useRef(null);
     useEffect(() => {
         if (el.current) {
@@ -49,7 +49,9 @@ export default function NewsShow(props: news): ReactElement {
                                     />
                                 </div>
                                 <div className={styles['news-box']}>
-                                    <MsgBox {...news}></MsgBox>
+                                    <Suspense fallback={<div>渲染中···</div>}>
+                                        <MsgBox {...news}></MsgBox>
+                                    </Suspense>
                                 </div>
                             </div>
                         );

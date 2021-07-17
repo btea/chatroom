@@ -16,8 +16,8 @@ export function MainBox(): ReactElement {
     });
     return (
         <div className="main-in">
-            {/* <MainPanel /> */}
-            <Register></Register>
+            <MainPanel />
+            {/* <Register></Register> */}
         </div>
     );
 }
