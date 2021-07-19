@@ -124,7 +124,7 @@ function searchData(name, table, params) {
 function updateData(name, table, oldParams, newParams) {
     name = name || 'wetalk';
     table = table || 'userInfo';
-    oldParams = params || {};
+    oldParams = oldParams || {};
     newParams = newParams || {};
     return new Promise((resolve, reject) => {
         linkStart(name)
