@@ -10,6 +10,7 @@ function successRes(res, msg) {
         code: 1,
         msg
     };
+    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
     res.end(JSON.stringify(params));
 }
 
@@ -21,6 +22,7 @@ function failureRes(res, msg) {
         code: 1,
         msg
     };
+    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
     res.end(JSON.stringify(params));
 }
 

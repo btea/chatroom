@@ -2,6 +2,7 @@ import React, { ChangeEvent, ReactElement, useState, useEffect, useRef } from 'r
 import { useHistory } from 'react-router-dom';
 import styles from './panel.module.less';
 import Message from '../../utils/Message';
+import { login } from '../../http/http';
 
 export function MainPanel(): ReactElement {
     const [src, setSrc] = useState('');
@@ -26,7 +27,12 @@ export function MainPanel(): ReactElement {
             return;
         }
         if (src) {
-            history.push('/main');
+            login({
+                name: inp.value
+            }).then(res => {
+                console.log(res);
+                // history.push('/main');
+            });
         }
     };
     useEffect(() => {

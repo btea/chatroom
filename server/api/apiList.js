@@ -66,12 +66,12 @@ function login(req, res, params) {
     if (params) {
         params = JSON.parse(params);
     }
-    dataOpe.searchData(params).then(res => {
-        const { status, result } = val;
+    dataOpe.searchData('wetalk', 'userList', params).then(resultObj => {
+        const { status, result } = resultObj;
         if (status === 'success') {
-            resDeal.successRes({ data: result });
+            resDeal.successRes(res, { data: result[0] });
         } else {
-            resDeal.failureRes('登录失败');
+            resDeal.failureRes(res, '登录失败');
         }
     });
 }
