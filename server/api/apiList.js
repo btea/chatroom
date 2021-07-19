@@ -1,23 +1,30 @@
-const startLink = require('../linkdb');
-const dataDeal = require('../data');
+const dataOpe = require('../dataOpe');
 const resDeal = require('./util');
 
 /**
- * 返回默认的接口请求数据
- * @param params 请求参数
- * @param res 响应对象
+ * 返回各个接口处理情况的具体操作
  */
-function defaultResponse(params, res) {
+
+/**
+ * @desc 返回默认的接口请求数据
+ * @param req {Request} 请求主体
+ * @param res {Response} 响应主体
+ * @param params {object} 请求参数
+ * @return {void}
+ */
+function defaultResponse(req, res, params) {
     const content = 'hello world';
     res.end(content);
 }
 
 /**
- * 没有找到对应的请求路径时处理返回
- * @param params 请求参数
- * @param res 响应对象
+ * @desc 没有找到对应的请求路径时处理返回
+ * @param req {Request} 请求主体
+ * @param res {Response} 响应对象
+ * @param params {object} 请求参数
+ * @return {void}
  */
-function notFound(params, res) {
+function notFound(req, res, params) {
     params = {
         code: 404,
         msg: '该请求接口不存在。'
@@ -26,51 +33,47 @@ function notFound(params, res) {
 }
 
 /**
- * 注册账号接口
+ * @desc 注册账号接口
+ * @param req {Request} 请求主体
+ * @param res {Response} 响应主体
+ * @param params {string} 注册相关参数
+ * @return {void}
  */
-function registerUser(params, res) {
+function registerUser(req, res, params) {
     if (params) {
         params = JSON.parse(params);
         params = Object.assign({ sign: '天空高远，大风吟唱~' }, params);
     }
-    const db = startLink('userInfo');
 
-    dataDeal.searchInfo(db, params).then(val => {
-        if (val && val.length) {
-            resDeal.successRes(res, '该用户已被注册');
-            return;
+    dataOpe.addData('wetalk', 'userInfo', params).then(val => {
+        const { status } = val;
+        if (status === 'success') {
+            resDeal.successRes(res, '注册成功');
+        } else {
+            resDeal.failureRes(res, '注册失败');
         }
-        dataDeal
-            .addInfo(db, params)
-            .then(val => {
-                resDeal.successRes(res, '注册成功');
-            })
-            .catch(err => {
-                resDeal.failureRes(res, '注册失败');
-            });
     });
 }
 
 /**
- * 登录修改
+ * @desc 用户登录
+ * @param req {Request} 请求主体
+ * @param res {Response} 响应主体
+ * @param params {object} 注册相关参数
+ * @return {void}
  */
-function login(params, res) {
+function login(req, res, params) {
     if (params) {
         params = JSON.parse(params);
     }
-    const db = startLink('userInfo');
-    dataDeal
-        .searchInfo(db, params)
-        .then(val => {
-            if (!val.length) {
-                resDeal.successRes(res, '该用户未注册');
-            } else {
-                resDeal.successRes(res, '登录成功');
-            }
-        })
-        .catch(err => {
-            resDeal.failureRes(res, '登录失败');
-        });
+    dataOpe.searchData(params).then(res => {
+        const { status, result } = val;
+        if (status === 'success') {
+            resDeal.successRes({ data: result });
+        } else {
+            resDeal.failureRes('登录失败');
+        }
+    });
 }
 
 /**

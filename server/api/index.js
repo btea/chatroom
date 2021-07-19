@@ -18,7 +18,7 @@ function parseParams(req, res) {
         if (!handle) {
             handle = list['404'];
         }
-        handle(params, res);
+        handle(req, res, params);
     });
 }
 
