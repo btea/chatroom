@@ -5,7 +5,7 @@
     "main": "index.js",
     "scripts": {
         "start": "node start.js",
-        "serve": "node ./server/app.js",
+        "serve": "node ./server/http.js",
         "dev": "vite",
         "lint:tsx": "eslint --ext .tsx src && eslint --ext .ts src",
         "lint:css": "stylelint --aei .css .less src",

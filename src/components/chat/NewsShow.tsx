@@ -13,7 +13,10 @@ export default function NewsShow(props: news): ReactElement {
         image: 'Image',
         other: 'Other'
     };
-    const type = info[0].type || 'text';
+    let type = 'text';
+    if (info[0]) {
+        type = info[0].type;
+    }
     const src = types[type] || 'Other';
     const MsgBox = React.lazy(() => {
         return import(/* @vite-ignore */ `./messages/${src}`);
