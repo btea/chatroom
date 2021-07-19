@@ -1,19 +1,19 @@
 import React, { ReactElement, Suspense, useEffect, useRef } from 'react';
 import styles from './newsshow.module.less';
-import text from './messages/Text';
+
 interface news {
     info: Array<InfoType.info>;
 }
 
 export default function NewsShow(props: news): ReactElement {
     const { info } = props;
-    const types = {
+    const types: { [key: string]: string } = {
         text: 'Text',
         audio: 'Audio',
         image: 'Image',
         other: 'Other'
     };
-    const type = 'text';
+    const type = info[0].type || 'text';
     const src = types[type] || 'Other';
     const MsgBox = React.lazy(() => {
         return import(/* @vite-ignore */ `./messages/${src}`);
