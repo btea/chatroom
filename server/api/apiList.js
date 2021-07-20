@@ -69,7 +69,16 @@ function login(req, res, params) {
     dataOpe.searchData('wetalk', 'userList', params).then(resultObj => {
         const { status, result } = resultObj;
         if (status === 'success') {
-            resDeal.successRes(res, { data: result[0] });
+            let info = {
+                code: 200,
+                data: result[0]
+            };
+            if (!info.data) {
+                info.data = {
+                    msg: '该用户不存在'
+                };
+            }
+            resDeal.successRes(res, info);
         } else {
             resDeal.failureRes(res, '登录失败');
         }

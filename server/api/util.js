@@ -5,10 +5,10 @@
 /**
  * 成功响应
  */
-function successRes(res, msg) {
-    const params = {
+function successRes(res, params) {
+    params = params || {
         code: 1,
-        msg
+        msg: 'ok'
     };
     res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
     res.end(JSON.stringify(params));
@@ -19,7 +19,7 @@ function successRes(res, msg) {
  */
 function failureRes(res, msg) {
     const params = {
-        code: 1,
+        code: -1,
         msg
     };
     res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });

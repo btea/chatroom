@@ -1,5 +1,6 @@
 const http = require('http');
 const url = require('url');
+const getAddress = require('./getAddress');
 const api = require('./api');
 
 const server = http.createServer();
@@ -39,7 +40,9 @@ server.on('request', function (request, response) {
     response.setHeader('Access-Control-Expose-Headers', '*');
     api(request, response);
 });
-server.listen(2233);
+server.listen(2233, function () {
+    console.log(`项目已经启动: http://${getAddress.getIp()}:2233`);
+});
 
 // 单聊信息处理
 function messageDeal(message) {
