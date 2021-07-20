@@ -1,7 +1,14 @@
-import React, { ReactElement, useState, useRef, useEffect } from 'react';
+import React, {
+    ReactElement,
+    useState,
+    useRef,
+    useEffect,
+    MutableRefObject,
+    forwardRef
+} from 'react';
 import styles from './sendmsg.module.less';
 import Message from '../../utils/Message';
-
+import { userInfo } from '../../utils/useUser';
 interface sendMsg {
     ws: WebSocket;
     id: number;
@@ -19,10 +26,20 @@ export default function SendMessage(props: sendMsg): ReactElement {
         if (!str) {
             Message({ msg: '不能发送空白信息' });
         } else {
-            const params = {
+            const to: Partial<{ id: number; nickname: string; avatar: string }> = {};
+            if (userInfo.id === 1) {
+                to.id = 2;
+                to.nickname = '洛天依';
+                to.avatar = '';
+            } else {
+                to.id = 1;
+                to.nickname = '伊蕾娜';
+                to.avatar = '';
+            }
+            const params: InfoType.info = {
                 content: str,
-                from: { id, name: '', avatar: '' },
-                to: { id, name: '', avatar: '' },
+                from: { id, name: userInfo.nickname as string, avatar: '' },
+                to: { id: to.id, name: to.nickname, avatar: to.avatar },
                 type: 'text',
                 time: Date.now()
             };
