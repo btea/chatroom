@@ -6,6 +6,8 @@ import FriendList from '../friends/FriendList';
 import SetList from './SetList';
 import styles from './main.module.less';
 import startLink from './socket';
+import { getFriendList } from '../../http/http';
+import { friendInfo } from '../../utils/useUser';
 
 function link(id: number) {
     const path = `ws://${location.hostname}:2233?id=${id}`;
@@ -33,19 +35,24 @@ export default function Main(): ReactElement {
         ws.onmessage = evt => {
             console.log(list);
             const message = evt.data;
-            const info = {
-                from: {
-                    id: 1,
-                    name: '徐念'
-                },
-                to: {
-                    id: 2,
-                    name: '李药师'
-                },
-                time: Date.now(),
-                type: 'text',
-                content: message
-            };
+            // const info = {
+            //     from: {
+            //         id: 1,
+            //         name: '徐念'
+            //     },
+            //     to: {
+            //         id: 2,
+            //         name: '李药师'
+            //     },
+            //     time: Date.now(),
+            //     type: 'text',
+            //     content: message
+            // };
+            const info = JSON.parse(message);
+
+            if (info.start) {
+                return;
+            }
             list = [...list, info];
             // console.log(n_s);
             setNews(list);

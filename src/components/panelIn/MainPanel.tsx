@@ -32,7 +32,11 @@ export function MainPanel(): ReactElement {
             login({
                 nickname: inp.value
             }).then(res => {
-                const info = res as { data: { data: Partial<Info> } };
+                const info = res as { data: { data: Partial<Info>; code: number } };
+                if (info.data.code === -1) {
+                    Message({ msg: info.data.data.msg || '登录失败' });
+                    return;
+                }
                 Object.assign(userInfo, info.data.data);
                 const id = info.data.data.id;
                 history.push({

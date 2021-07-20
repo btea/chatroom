@@ -4,6 +4,7 @@ export interface Info {
     nickname: string;
     avatar: string;
     sign: string;
+    msg: string;
 }
 
 export const userInfo: Partial<Info> = {};

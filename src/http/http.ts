@@ -19,3 +19,11 @@ export function register(params: params): Promise<unknown> {
         data: params
     });
 }
+
+export function getFriendList(params: params): Promise<unknown> {
+    return request({
+        url: '/getFriendList',
+        method: 'get',
+        data: params
+    });
+}

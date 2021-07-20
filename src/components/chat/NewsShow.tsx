@@ -1,5 +1,6 @@
 import React, { ReactElement, Suspense, useEffect, useRef } from 'react';
 import styles from './newsshow.module.less';
+import { userInfo } from '../../utils/useUser';
 
 interface news {
     info: Array<InfoType.info>;
@@ -49,7 +50,7 @@ export default function NewsShow(props: news): ReactElement {
                                 className={
                                     styles['content-box'] +
                                     ' ' +
-                                    styles[id == Number(news.from) ? 'right' : 'left']
+                                    styles[userInfo.id == Number(news.from) ? 'right' : 'left']
                                 }
                                 key={i}
                             >
