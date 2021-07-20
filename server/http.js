@@ -21,7 +21,8 @@ wsServer.on('connection', function (socket, req) {
             messageDeal(message);
         }
     });
-    socket.send('linked');
+    const init = { start: 'link' };
+    socket.send(JSON.stringify(init));
 });
 wsServer.on('close', function (socket) {
     clientsInfo.delete(socket);
@@ -49,10 +50,11 @@ server.listen(2233, function () {
 // 单聊信息处理
 function messageDeal(message) {
     const { type, from, to, content } = message;
+    console.log(message);
     wsServer.clients.forEach(ws => {
         if (clientsInfo.has(ws)) {
             let _id = clientsInfo.get(ws);
-            if (_id == to) {
+            if (_id == to.id) {
                 ws.send(JSON.stringify(message));
             }
         }

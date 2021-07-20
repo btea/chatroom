@@ -178,5 +178,6 @@ module.exports = {
     '/': defaultResponse,
     '/register': registerUser,
     '/login': login,
+    '/getFriendList': getFriendsList,
     404: notFound
 };
