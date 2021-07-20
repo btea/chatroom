@@ -60,8 +60,8 @@ export default function Main(): ReactElement {
                     <FriendList></FriendList>
                 </div>
                 <div className={styles['right-chat-box']}>
-                    <NewsShow info={news}></NewsShow>
-                    <SendMsg ws={wsObj}></SendMsg>
+                    <NewsShow info={news} id={id}></NewsShow>
+                    <SendMsg ws={wsObj} id={id}></SendMsg>
                 </div>
             </div>
         </div>
