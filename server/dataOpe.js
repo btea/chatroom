@@ -40,7 +40,7 @@ function linkStart(name) {
  * @desc 往数据库添加数据
  * @param name {string} 数据库名字
  * @param table {string} collection名字
- * @param params {{[key: string]: unknown}} 查询参数
+ * @param params {{[key: string]: unknown}} 添加参数
  * @returns {Promise} 返回一个promise，对添加结果进行处理
  */
 

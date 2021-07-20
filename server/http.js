@@ -9,8 +9,10 @@ let wsServer = new webSocketServer({ noServer: true });
 
 const clientsInfo = new WeakMap();
 wsServer.on('connection', function (socket, req) {
-    clientsInfo.set(socket);
     let id = req.url.split('=')[1];
+    if (id) {
+        clientsInfo.set(socket, id);
+    }
     socket.on('message', function incoming(message) {
         message = JSON.parse(message);
         if (typeof message !== 'object') {
@@ -49,10 +51,10 @@ function messageDeal(message) {
     const { type, from, to, content } = message;
     wsServer.clients.forEach(ws => {
         if (clientsInfo.has(ws)) {
-            // let _id = clientsInfo.get(ws);
-            // if (_id == to) {
-            ws.send(JSON.stringify(message));
-            // }
+            let _id = clientsInfo.get(ws);
+            if (_id == to) {
+                ws.send(JSON.stringify(message));
+            }
         }
     });
 }

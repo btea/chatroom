@@ -1,5 +1,6 @@
 const dataOpe = require('../dataOpe');
 const resDeal = require('./util');
+const collectionNames = require('./collectionList');
 
 /**
  * 返回各个接口处理情况的具体操作
@@ -45,10 +46,13 @@ function registerUser(req, res, params) {
         params = Object.assign({ sign: '天空高远，大风吟唱~' }, params);
     }
 
-    dataOpe.addData('wetalk', 'userInfo', params).then(val => {
+    dataOpe.addData(collectionNames.db, collectionNames.collections.userList, params).then(val => {
         const { status } = val;
         if (status === 'success') {
-            resDeal.successRes(res, '注册成功');
+            resDeal.successRes(res, {
+                code: 200,
+                msg: '注册成功'
+            });
         } else {
             resDeal.failureRes(res, '注册失败');
         }
@@ -66,23 +70,26 @@ function login(req, res, params) {
     if (params) {
         params = JSON.parse(params);
     }
-    dataOpe.searchData('wetalk', 'userList', params).then(resultObj => {
-        const { status, result } = resultObj;
-        if (status === 'success') {
-            let info = {
-                code: 200,
-                data: result[0]
-            };
-            if (!info.data) {
-                info.data = {
-                    msg: '该用户不存在'
+    dataOpe
+        .searchData(collectionNames.db, collectionNames.collections.userList, params)
+        .then(resultObj => {
+            const { status, result } = resultObj;
+            if (status === 'success') {
+                let info = {
+                    code: 200,
+                    data: result[0]
                 };
+                if (!info.data) {
+                    info.code = -1;
+                    info.data = {
+                        msg: '该用户不存在'
+                    };
+                }
+                resDeal.successRes(res, info);
+            } else {
+                resDeal.failureRes(res, '登录失败');
             }
-            resDeal.successRes(res, info);
-        } else {
-            resDeal.failureRes(res, '登录失败');
-        }
-    });
+        });
 }
 
 /**
@@ -113,9 +120,13 @@ function agreeFriend(params, res) {}
 function refuseFreind(params, res) {}
 
 /**
- * 获取好友列表接口
+ * @desc 获取好友列表
+ * @param req {Request} 请求主体
+ * @param res {Response} 响应主体
+ * @param params {object} 用户id信息
+ * @return {void}
  */
-function getFriendsList(params, res) {}
+function getFriendsList(req, res, params) {}
 
 /**
  * 获取进行操作的列表接口，比如添加好友。。。
