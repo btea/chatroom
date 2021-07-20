@@ -11,9 +11,9 @@
 |roomid|id|avatar|time|notice|background|total|infos|
 
 **_用户好友列表(userFriends)_**  
-| 用户 id | 好友信息(类型（单聊/群聊）、id)|
-|:------:|:-----------------------------------------------------:|
-|id| friends |
+|用户 id|好友 id|好友头像|好友用户名|
+|:----:|:---:|:------:|:-------:|  
+|id|friendId|avatar|nickanme|
 
 **_好友最后一次通信记录信息(friendLastChat)_**  
 | 用户 id | 头像 | 用户名 | 签名 | 聊天内容 | 聊天时间 |  
