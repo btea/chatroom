@@ -28,10 +28,16 @@ export function MainPanel(): ReactElement {
         }
         if (src) {
             login({
-                name: inp.value
+                nickname: inp.value
             }).then(res => {
-                console.log(res);
-                // history.push('/main');
+                const info = res as { data: { data: { [key: string]: number | string } } };
+                const id = info.data.data.id;
+                history.push({
+                    pathname: '/main',
+                    state: {
+                        id
+                    }
+                });
             });
         }
     };

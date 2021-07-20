@@ -1,4 +1,5 @@
 import React, { ReactElement, useEffect, useState } from 'react';
+import { Router, useLocation } from 'react-router-dom';
 import SendMsg from './SendMsg';
 import NewsShow from './NewsShow';
 import FriendList from '../friends/FriendList';
@@ -6,8 +7,8 @@ import SetList from './SetList';
 import styles from './main.module.less';
 import startLink from './socket';
 
-function link() {
-    const path = `ws://${location.hostname}:2233`;
+function link(id: number) {
+    const path = `ws://${location.hostname}:2233?id=${id}`;
     const ws = startLink(path);
     ws.onopen = () => {
         console.log('link');
@@ -20,11 +21,14 @@ function link() {
 }
 
 export default function Main(): ReactElement {
+    const location = useLocation();
+    const state = location.state as { id: number };
+    const id = state.id;
     const [news, setNews] = useState<Array<InfoType.info>>([]);
     const [wsObj, setObj] = useState(WebSocket.prototype);
     let list: Array<InfoType.info> = [];
     useEffect(() => {
-        const ws = link();
+        const ws = link(id);
         setObj(ws);
         ws.onmessage = evt => {
             console.log(list);
@@ -41,7 +45,7 @@ export default function Main(): ReactElement {
                 time: Date.now(),
                 type: 'text',
                 content: message
-            }
+            };
             list = [...list, info];
             // console.log(n_s);
             setNews(list);
