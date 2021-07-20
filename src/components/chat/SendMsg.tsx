@@ -4,11 +4,12 @@ import Message from '../../utils/Message';
 
 interface sendMsg {
     ws: WebSocket;
+    id: number;
 }
 
 export default function SendMessage(props: sendMsg): ReactElement {
     // console.log(props);
-    const { ws } = props;
+    const { ws, id } = props;
     let focus = true;
     const box = useRef(null);
     const startSend = () => {
@@ -18,7 +19,13 @@ export default function SendMessage(props: sendMsg): ReactElement {
         if (!str) {
             Message({ msg: '不能发送空白信息' });
         } else {
-            const params = { msg: str };
+            const params = {
+                content: str,
+                from: { id, name: '', avatar: '' },
+                to: { id, name: '', avatar: '' },
+                type: 'text',
+                time: Date.now()
+            };
             ws.send(JSON.stringify(params));
         }
         el.innerText = '';

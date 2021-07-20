@@ -126,7 +126,30 @@ function refuseFreind(params, res) {}
  * @param params {object} 用户id信息
  * @return {void}
  */
-function getFriendsList(req, res, params) {}
+function getFriendsList(req, res, params) {
+    if (params) {
+        params = JSON.parse(params);
+    }
+    dataOpe
+        .searchData(collectionNames.db, collectionNames.collections.friendLastChat, {
+            id: params.id
+        })
+        .then(result => {
+            const { status } = result;
+            if (status === 'success') {
+                let info = {
+                    code: 200,
+                    data: result[0]
+                };
+                if (!info.data) {
+                    info.data = [];
+                    resDeal.successRes(res, info);
+                }
+            } else {
+                resDeal.failureRes(res, '获取聊天信息失败');
+            }
+        });
+}
 
 /**
  * 获取进行操作的列表接口，比如添加好友。。。

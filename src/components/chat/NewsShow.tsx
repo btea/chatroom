@@ -3,10 +3,11 @@ import styles from './newsshow.module.less';
 
 interface news {
     info: Array<InfoType.info>;
+    id: number;
 }
 
 export default function NewsShow(props: news): ReactElement {
-    const { info } = props;
+    const { info, id } = props;
     const types: { [key: string]: string } = {
         text: 'Text',
         audio: 'Audio',
@@ -24,7 +25,8 @@ export default function NewsShow(props: news): ReactElement {
     const el = useRef(null);
     useEffect(() => {
         if (el.current) {
-            const _el = (el.current as unknown) as HTMLElement;
+            // const _el = (el.current as unknown) as HTMLElement;
+            const _el = el.current! as HTMLElement;
             // const _last = _el.lastChild as HTMLElement;
             // if (_last) {
             // _last.scrollIntoView({
@@ -43,7 +45,14 @@ export default function NewsShow(props: news): ReactElement {
                 {info &&
                     info.map((news, i) => {
                         return (
-                            <div className={styles['content-box'] + ' ' + styles['left']} key={i}>
+                            <div
+                                className={
+                                    styles['content-box'] +
+                                    ' ' +
+                                    styles[id == Number(news.from) ? 'right' : 'left']
+                                }
+                                key={i}
+                            >
                                 <div className={styles['avatar']}>
                                     <img
                                         className={styles['avatar-img']}

@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import styles from './panel.module.less';
 import Message from '../../utils/Message';
 import { login } from '../../http/http';
+import { userInfo, Info } from '../../utils/useUser';
 
 export function MainPanel(): ReactElement {
     const [src, setSrc] = useState('');
@@ -10,6 +11,7 @@ export function MainPanel(): ReactElement {
     const [register, setRegister] = useState(false);
     const nickName = useRef(null);
     const history = useHistory();
+
     const handle = (e: KeyboardEvent) => {
         if (e.key !== 'Enter') {
             return;
@@ -30,7 +32,8 @@ export function MainPanel(): ReactElement {
             login({
                 nickname: inp.value
             }).then(res => {
-                const info = res as { data: { data: { [key: string]: number | string } } };
+                const info = res as { data: { data: Partial<Info> } };
+                Object.assign(userInfo, info.data.data);
                 const id = info.data.data.id;
                 history.push({
                     pathname: '/main',
