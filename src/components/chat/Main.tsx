@@ -7,6 +7,7 @@ import SetList from './SetList';
 import styles from './main.module.less';
 import startLink from './socket';
 import { getFriendList } from '../../http/http';
+import { newsList } from '../../state/news';
 
 function link(id: number) {
     const path = `ws://${location.hostname}:2233?id=${id}`;
@@ -27,21 +28,21 @@ export default function Main(): ReactElement {
     const id = state.id;
     const [news, setNews] = useState<Array<InfoType.info>>([]);
     const [wsObj, setObj] = useState(WebSocket.prototype);
-    let list: Array<InfoType.info> = [];
+    // let list: Array<InfoType.info> = [];
     useEffect(() => {
         const ws = link(id);
         setObj(ws);
         ws.onmessage = evt => {
-            console.log(list);
+            // console.log(list);
             const message = evt.data;
             const info = JSON.parse(message);
 
             if (info.start) {
                 return;
             }
-            list = [...news, info];
+            newsList.push(info);
             // console.log(n_s);
-            setNews(list);
+            setNews(JSON.parse(JSON.stringify(newsList)));
         };
     }, []);
     return (
@@ -56,9 +57,9 @@ export default function Main(): ReactElement {
                     <SendMsg
                         ws={wsObj}
                         id={id}
-                        info={news}
-                        addNews={(info: Array<InfoType.info>) => {
-                            setNews([...info]);
+                        addNews={(info: InfoType.info) => {
+                            newsList.push(info);
+                            setNews(JSON.parse(JSON.stringify(newsList)));
                         }}
                     ></SendMsg>
                 </div>

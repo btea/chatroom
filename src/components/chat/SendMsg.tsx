@@ -12,13 +12,13 @@ import { userInfo } from '../../utils/useUser';
 interface sendMsg {
     ws: WebSocket;
     id: number;
-    info: Array<InfoType.info>;
-    addNews: (info: Array<InfoType.info>) => void;
+    // info: InfoType.info;
+    addNews: (info: InfoType.info) => void;
 }
 
 export default function SendMessage(props: sendMsg): ReactElement {
     // console.log(props);
-    const { ws, id, addNews, info } = props;
+    const { ws, id, addNews } = props;
     let focus = true;
     const box = useRef(null);
     const startSend = () => {
@@ -45,8 +45,8 @@ export default function SendMessage(props: sendMsg): ReactElement {
                 type: 'text',
                 time: Date.now()
             };
-            info.push(params);
-            addNews && addNews(info);
+            // info.push(params);
+            addNews && addNews(params);
             ws.send(JSON.stringify(params));
         }
         el.innerText = '';
