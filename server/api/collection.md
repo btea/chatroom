@@ -11,20 +11,21 @@
 |roomid|id|avatar|time|notice|background|total|infos|
 
 **_用户好友列表(userFriends)_**  
-|用户 id|好友 id|好友头像|好友用户名|
-|:----:|:---:|:------:|:-------:|  
-|id|friendId|avatar|nickanme|
+|用户 id|好友 id|
+|:----:|:---:|
+|id|friend|
 
 **_好友最后一次通信记录信息(friendLastChat)_**  
-| 用户 id | 头像 | 用户名 | 签名 | 聊天内容 | 聊天时间 |  
+| id 组合 | 头像 | 用户名 | 签名 | 聊天内容 | 聊天时间 |  
 |:-----:|:-----:|:-----:|:----:|:-------:|:--------:|  
-|id|avatar|nickname|sign|content|time|
+|ids|avatar|nickname|sign|content|time|
 
 **_好友聊天记录(chatRecord)_**
 | id 组合 | 发送方 | 接收方 | 内容 | 类型 | 发送时间 |
 |:-----:|:------:|:------:|:----:|:----:|:-------:|  
 |ids| from | to | content | type | time|
 
-> ids 可以由通信双方的 id 从小到大排列组合，不管双方谁进行查询都可以查到
+> ids 可以由通信双方的 id 从小到大排列组合，确保通信双方可以准确查询  
+> from,to {id, nickname, avatar}
 
 **_操作记录(operationList)_**

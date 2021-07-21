@@ -7,7 +7,6 @@ import SetList from './SetList';
 import styles from './main.module.less';
 import startLink from './socket';
 import { getFriendList } from '../../http/http';
-import { friendInfo } from '../../utils/useUser';
 
 function link(id: number) {
     const path = `ws://${location.hostname}:2233?id=${id}`;

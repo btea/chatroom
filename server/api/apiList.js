@@ -126,29 +126,40 @@ function refuseFreind(params, res) {}
  * @param params {object} 用户id信息
  * @return {void}
  */
-function getFriendsList(req, res, params) {
+async function getFriendsList(req, res, params) {
     if (params) {
         params = JSON.parse(params);
     }
-    dataOpe
-        .searchData(collectionNames.db, collectionNames.collections.friendLastChat, {
+    const friendsInfo = dataOpe.searchData(
+        collectionNames.db,
+        collectionNames.collections.friendLastChat,
+        {
             id: params.id
-        })
-        .then(result => {
-            const { status } = result;
-            if (status === 'success') {
-                let info = {
-                    code: 200,
-                    data: result[0]
-                };
-                if (!info.data) {
-                    info.data = [];
-                    resDeal.successRes(res, info);
-                }
-            } else {
-                resDeal.failureRes(res, '获取聊天信息失败');
-            }
-        });
+        }
+    );
+    const { status } = friendsInfo;
+    if (status === 'fail') {
+        resDeal.failureRes(res, '获取好友信息失败');
+        return;
+    }
+    let list = friendsInfo.result;
+    let info = { code: 200, data: [] };
+    if (list.length) {
+        list = list.map(item => item.friend);
+        let friends = await dataOpe.searchData(
+            collectionNames.db,
+            collectionNames.collections.userList,
+            { id: { $in: [list] } }
+        );
+        if (friends.status === 'fail') {
+            resDeal.failureRes(res, '获取好友信息失败');
+            return;
+        }
+        info.data = friends.result;
+        resDeal.successRes(res, info);
+    } else {
+        resDeal.successRes(res, info);
+    }
 }
 
 /**
