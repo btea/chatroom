@@ -52,7 +52,7 @@ export default function NewsShow(props: news): ReactElement {
                                     ' ' +
                                     styles[userInfo.id == Number(news.from.id) ? 'right' : 'left']
                                 }
-                                key={i}
+                                key={news.time + ''}
                             >
                                 <div className={styles['avatar']}>
                                     <img
