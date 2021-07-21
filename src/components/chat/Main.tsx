@@ -34,28 +34,14 @@ export default function Main(): ReactElement {
         ws.onmessage = evt => {
             console.log(list);
             const message = evt.data;
-            // const info = {
-            //     from: {
-            //         id: 1,
-            //         name: '徐念'
-            //     },
-            //     to: {
-            //         id: 2,
-            //         name: '李药师'
-            //     },
-            //     time: Date.now(),
-            //     type: 'text',
-            //     content: message
-            // };
             const info = JSON.parse(message);
 
             if (info.start) {
                 return;
             }
-            list = [...list, info];
+            list = [...news, info];
             // console.log(n_s);
             setNews(list);
-            console.log(message);
         };
     }, []);
     return (
@@ -67,7 +53,14 @@ export default function Main(): ReactElement {
                 </div>
                 <div className={styles['right-chat-box']}>
                     <NewsShow info={news} id={id}></NewsShow>
-                    <SendMsg ws={wsObj} id={id}></SendMsg>
+                    <SendMsg
+                        ws={wsObj}
+                        id={id}
+                        info={news}
+                        addNews={(info: Array<InfoType.info>) => {
+                            setNews([...info]);
+                        }}
+                    ></SendMsg>
                 </div>
             </div>
         </div>
