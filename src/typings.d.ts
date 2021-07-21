@@ -19,12 +19,14 @@ declare module '*.module.less' {
 declare namespace InfoType {
     export interface info {
         from: {
-            id: number | string;
+            id: number;
             name: string;
+            avatar: string;
         };
         to: {
-            id: number | string;
+            id: number;
             name: string;
+            avatar: string;
         };
         time: number | string | Date;
         type: string;

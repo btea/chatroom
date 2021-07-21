@@ -65,7 +65,6 @@ export function MainPanel(): ReactElement {
             };
             reader.readAsDataURL(file);
         }
-        console.log(e.target);
     };
 
     return (

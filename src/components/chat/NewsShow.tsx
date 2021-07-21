@@ -50,7 +50,7 @@ export default function NewsShow(props: news): ReactElement {
                                 className={
                                     styles['content-box'] +
                                     ' ' +
-                                    styles[userInfo.id == Number(news.from) ? 'right' : 'left']
+                                    styles[userInfo.id == Number(news.from.id) ? 'right' : 'left']
                                 }
                                 key={i}
                             >
