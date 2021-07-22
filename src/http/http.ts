@@ -22,8 +22,7 @@ export function register(params: params): Promise<unknown> {
 
 export function getFriendList(params: params): Promise<unknown> {
     return request({
-        url: '/getFriendList',
-        method: 'get',
-        data: params
+        url: `/getFriendList?id=${params.id}`,
+        method: 'get'
     });
 }

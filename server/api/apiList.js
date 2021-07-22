@@ -126,15 +126,15 @@ function refuseFreind(params, res) {}
  * @param params {object} 用户id信息
  * @return {void}
  */
-async function getFriendsList(req, res, params) {
+async function getFriendList(req, res, params) {
     if (params) {
         params = JSON.parse(params);
     }
-    const friendsInfo = dataOpe.searchData(
+    const friendsInfo = await dataOpe.searchData(
         collectionNames.db,
-        collectionNames.collections.friendLastChat,
+        collectionNames.collections.userFriends,
         {
-            id: params.id
+            id: Number(params.id)
         }
     );
     const { status } = friendsInfo;
@@ -149,7 +149,7 @@ async function getFriendsList(req, res, params) {
         let friends = await dataOpe.searchData(
             collectionNames.db,
             collectionNames.collections.userList,
-            { id: { $in: [list] } }
+            { id: { $in: list } }
         );
         if (friends.status === 'fail') {
             resDeal.failureRes(res, '获取好友信息失败');
@@ -189,6 +189,6 @@ module.exports = {
     '/': defaultResponse,
     '/register': registerUser,
     '/login': login,
-    '/getFriendList': getFriendsList,
+    '/getFriendList': getFriendList,
     404: notFound
 };

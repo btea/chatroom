@@ -45,6 +45,9 @@ export default function Main(): ReactElement {
             // console.log(n_s);
             setNews(deepClone(newsList));
         };
+        getFriendList({ id }).then(res => {
+            console.log(res);
+        });
     }, []);
     return (
         <div className={styles['main-con']}>

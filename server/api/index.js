@@ -6,13 +6,30 @@ const list = require('./apiList');
  * @param res 响应实例
  */
 function parseParams(req, res) {
-    const { url } = req;
+    let { url, method } = req;
+    method = method.toLowerCase();
+    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
     let params = '';
+    if (method === 'get') {
+        [url, params] = url.split('?');
+        const obj = {};
+        params.split('&').map(kv => {
+            const [k, v] = kv.split('=');
+            obj[k] = v;
+        });
+        params = JSON.stringify(obj);
+        let handle = list[url];
+        if (!handle) {
+            handle = list['404'];
+        }
+        handle(req, res, params);
+        return;
+    }
+
     req.on('data', chunk => {
         params += chunk;
     });
     req.on('end', () => {
-        // console.log(params);
         let handle = list[url];
         if (!handle) {
             handle = list['404'];
