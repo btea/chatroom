@@ -1,5 +1,6 @@
 import React, { ReactElement, useEffect, useState } from 'react';
 import { Router, useLocation } from 'react-router-dom';
+import { deepClone } from '@btea/utils';
 import SendMsg from './SendMsg';
 import NewsShow from './NewsShow';
 import FriendList from '../friends/FriendList';
@@ -42,7 +43,7 @@ export default function Main(): ReactElement {
             }
             newsList.push(info);
             // console.log(n_s);
-            setNews(JSON.parse(JSON.stringify(newsList)));
+            setNews(deepClone(newsList));
         };
     }, []);
     return (
@@ -59,7 +60,7 @@ export default function Main(): ReactElement {
                         id={id}
                         addNews={(info: InfoType.info) => {
                             newsList.push(info);
-                            setNews(JSON.parse(JSON.stringify(newsList)));
+                            setNews(deepClone(newsList));
                         }}
                     ></SendMsg>
                 </div>

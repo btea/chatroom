@@ -12,4 +12,5 @@ declare module '@btea/utils' {
     export function isObject(val: unknown): boolean;
     export function isTruly(val: unknown): boolean;
     export function getType(val: unknown): string;
+    export function deepClone(val: T): T;
 }
