@@ -62,7 +62,7 @@ export default function NewsShow(props: news): ReactElement {
                                     />
                                 </div>
                                 <div className={styles['news-box']}>
-                                    <Suspense fallback={<div>渲染中···</div>}>
+                                    <Suspense fallback={''}>
                                         <MsgBox {...news}></MsgBox>
                                     </Suspense>
                                 </div>
