@@ -51,7 +51,7 @@ server.listen(2233, function () {
 
 // 单聊信息处理
 function messageDeal(message) {
-    const { type, from, to, content } = message;
+    const { to } = message;
     saveMessage(message).then(res => {
         console.log('保存成功');
     });

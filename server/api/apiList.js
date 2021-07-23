@@ -168,8 +168,10 @@ async function getFriendList(req, res, params) {
  * @return {void}
  * @note 这个方法在socket接收到聊天信息的时候进行调用保存
  */
-async function saveMessage(req, res, params) {
-    params = JSON.parse(params);
+async function saveMessage(params) {
+    if (typeof params === 'string') {
+        params = JSON.parse(params);
+    }
     const from = params.from.id;
     const to = params.to.id;
     if (from > to) {
@@ -177,11 +179,9 @@ async function saveMessage(req, res, params) {
     } else {
         params.ids = `${from}-${to}`;
     }
-    const info = dataOpe.addData(
-        collectionNames.db,
-        collectionNames.collections.chatRecord,
+    const info = dataOpe.addData(collectionNames.db, collectionNames.collections.chatRecord, [
         params
-    );
+    ]);
     const { status } = info;
     if (status === 'fail') {
         console.log('保存失败');
