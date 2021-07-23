@@ -2,6 +2,7 @@ const http = require('http');
 const url = require('url');
 const getAddress = require('./getAddress');
 const api = require('./api');
+const { saveMessage } = require('./api/apiList');
 
 const server = http.createServer();
 const webSocketServer = require('ws').Server;
@@ -16,7 +17,8 @@ wsServer.on('connection', function (socket, req) {
     socket.on('message', function incoming(message) {
         message = JSON.parse(message);
         if (typeof message !== 'object') {
-            socket.send('消息类型有问题');
+            const info = { error: '消息类型有问题' };
+            socket.send(JSON.stringify(info));
         } else {
             messageDeal(message);
         }
@@ -50,7 +52,9 @@ server.listen(2233, function () {
 // 单聊信息处理
 function messageDeal(message) {
     const { type, from, to, content } = message;
-    console.log(message);
+    saveMessage(message).then(res => {
+        console.log('保存成功');
+    });
     wsServer.clients.forEach(ws => {
         if (clientsInfo.has(ws)) {
             let _id = clientsInfo.get(ws);

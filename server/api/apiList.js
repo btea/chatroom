@@ -163,6 +163,58 @@ async function getFriendList(req, res, params) {
 }
 
 /**
+ * @desc 保存聊天信息
+ * @param {object} params 用户id信息
+ * @return {void}
+ * @note 这个方法在socket接收到聊天信息的时候进行调用保存
+ */
+async function saveMessage(req, res, params) {
+    params = JSON.parse(params);
+    const from = params.from.id;
+    const to = params.to.id;
+    if (from > to) {
+        params.ids = `${to}-${from}`;
+    } else {
+        params.ids = `${from}-${to}`;
+    }
+    const info = dataOpe.addData(
+        collectionNames.db,
+        collectionNames.collections.chatRecord,
+        params
+    );
+    const { status } = info;
+    if (status === 'fail') {
+        console.log('保存失败');
+        return;
+    }
+    console.log('保存成功');
+}
+
+/**
+ * @desc 查询聊天记录
+ * @param {object} params 需要查询的双方信息，用户ids或者房间号
+ * @return {void}
+ */
+async function searchMessage(req, res, params) {
+    params = JSON.parse(params);
+    const info = await dataOpe.searchData(
+        collectionNames.db,
+        collectionNames.collections.chatRecord,
+        { ids: params.ids }
+    );
+    const { status } = info;
+    if (status === 'fail') {
+        resDeal.failureRes(res, '获取聊天记录失败');
+        return;
+    }
+    const { result } = info;
+    resDeal.successRes(res, {
+        code: 200,
+        data: result
+    });
+}
+
+/**
  * 获取进行操作的列表接口，比如添加好友。。。
  */
 function getOperations(params, res) {}
@@ -190,5 +242,7 @@ module.exports = {
     '/register': registerUser,
     '/login': login,
     '/getFriendList': getFriendList,
+    saveMessage,
+    '/searchMessage': searchMessage,
     404: notFound
 };

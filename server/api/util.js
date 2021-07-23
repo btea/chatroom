@@ -3,7 +3,10 @@
  */
 
 /**
- * 成功响应
+ * @desc 请求成功处理响应
+ * @param {Response} res 响应主体
+ * @param {object} params 响应数据
+ * @return {void}
  */
 function successRes(res, params) {
     params = params || {
@@ -14,7 +17,10 @@ function successRes(res, params) {
 }
 
 /**
- * 失败响应
+ * @desc 请求失败处理响应
+ * @param {Response} res 响应主体
+ * @param {string} msg 响应说明信息
+ * @return {void}
  */
 function failureRes(res, msg) {
     const params = {
