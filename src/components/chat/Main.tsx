@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { ReactElement, useEffect, useRef, useState } from 'react';
 import { Router, useLocation } from 'react-router-dom';
 import { deepClone } from '@btea/utils';
 import SendMsg from './SendMsg';
@@ -29,6 +29,7 @@ export default function Main(): ReactElement {
     const id = state.id;
     const [news, setNews] = useState<Array<InfoType.info>>([]);
     const [wsObj, setObj] = useState(WebSocket.prototype);
+    const [friends, setFreiend] = useState<Array<InfoType.friend>>([]);
     // let list: Array<InfoType.info> = [];
     useEffect(() => {
         const ws = link(id);
