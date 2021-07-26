@@ -45,18 +45,32 @@ export default function Main(): ReactElement {
         };
     }
     // let list: Array<InfoType.info> = [];
+    // useEffect(() => {
+    //     establish();
+    //     let ignore = false;
+    //     async function fetchFriends(params: { id: string | number }) {
+    //         const result = await getFriendList({ id: params.id });
+    //         console.log(result);
+    //     }
+    //     fetchFriends({ id });
+    //     return () => {
+    //         ignore = true;
+    //     };
+    // }, []);
+    // 传入一个空数组为参数，不管什么情况useEffect只会执行一次
     useEffect(() => {
-        establish();
-        let ignore = false;
-        async function fetchFriends(params: { id: string | number }) {
-            const result = await getFriendList({ id: params.id });
-            console.log(result);
-        }
-        fetchFriends({ id });
-        return () => {
-            ignore = true;
+        const ws = link(id);
+        setObj(ws);
+        ws.onmessage = evt => {
+            const message = evt.data;
+            const info = JSON.parse(message);
+            if (info.start) {
+                return;
+            }
+            // 函数式更新 https://react.docschina.org/docs/hooks-reference.html#functional-updates
+            setNews(news => [...news, info]);
         };
-    }, []); // 传入一个空数组为参数，不管什么情况useEffect只会执行一次
+    }, []);
     return (
         <div className={styles['main-con']}>
             <div className={styles['main-chat-model']}>
@@ -70,8 +84,8 @@ export default function Main(): ReactElement {
                         ws={wsObj}
                         id={id}
                         addNews={(info: InfoType.info) => {
-                            newsList.push(info);
-                            setNews(deepClone(newsList));
+                            // newsList.push(info);
+                            setNews(news => [...news, info]);
                         }}
                     ></SendMsg>
                 </div>
