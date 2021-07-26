@@ -196,12 +196,12 @@ async function getFriendList(req, res, params) {
         resDeal.failureRes(res, '获取好友信息失败');
         return;
     }
-    let list = friendsInfo.result;
+    let frinedList = friendsInfo.result;
     let info = { code: 200, data: [] };
-    if (list.length) {
-        list = list.map(item => item.friend);
+    if (frinedList.length) {
+        frinedList = frinedList.map(item => item.friend);
         let friends = await dataOpe.searchData(list.db, list.collections.userList, {
-            id: { $in: list }
+            id: { $in: frinedList }
         });
         if (friends.status === 'fail') {
             resDeal.failureRes(res, '获取好友信息失败');
