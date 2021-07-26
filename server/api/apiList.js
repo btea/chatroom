@@ -1,6 +1,6 @@
 const dataOpe = require('../dataOpe');
 const resDeal = require('./util');
-const collectionNames = require('./collectionList');
+const list = require('./collectionList');
 
 /**
  * 返回各个接口处理情况的具体操作
@@ -46,7 +46,7 @@ function registerUser(req, res, params) {
         params = Object.assign({ sign: '天空高远，大风吟唱~' }, params);
     }
 
-    dataOpe.addData(collectionNames.db, collectionNames.collections.userList, params).then(val => {
+    dataOpe.addData(list.db, list.collections.userList, params).then(val => {
         const { status } = val;
         if (status === 'success') {
             resDeal.successRes(res, {
@@ -70,26 +70,24 @@ function login(req, res, params) {
     if (params) {
         params = JSON.parse(params);
     }
-    dataOpe
-        .searchData(collectionNames.db, collectionNames.collections.userList, params)
-        .then(resultObj => {
-            const { status, result } = resultObj;
-            if (status === 'success') {
-                let info = {
-                    code: 200,
-                    data: result[0]
+    dataOpe.searchData(list.db, list.collections.userList, params).then(resultObj => {
+        const { status, result } = resultObj;
+        if (status === 'success') {
+            let info = {
+                code: 200,
+                data: result[0]
+            };
+            if (!info.data) {
+                info.code = -1;
+                info.data = {
+                    msg: '该用户不存在'
                 };
-                if (!info.data) {
-                    info.code = -1;
-                    info.data = {
-                        msg: '该用户不存在'
-                    };
-                }
-                resDeal.successRes(res, info);
-            } else {
-                resDeal.failureRes(res, '登录失败');
             }
-        });
+            resDeal.successRes(res, info);
+        } else {
+            resDeal.failureRes(res, '登录失败');
+        }
+    });
 }
 
 /**
@@ -103,11 +101,71 @@ function editUserPwd(params, res) {}
 function editUserInfo(params, res) {}
 
 /**
- * 添加好友接口
- * @param params {object}
- * @param params.name 用户名
+ * @desc 搜索用户
+ * @param req {Request} 请求主体
+ * @param res {Response} 响应主体
+ * @param params {object} params.word 搜索关键词信息
+ * @return {void}
  */
-function addFriend(params, res) {}
+async function searchByName(req, res, params) {
+    if (params) {
+        params = JSON.parse(params);
+    }
+    const users = dataOpe.searchData(list.db, list.collections.userList, {
+        nickname: params.word
+    });
+    const { status } = users;
+    if (status === 'fail') {
+        resDeal.failureRes(res, '搜索用户失败');
+        return;
+    }
+    const result = users.result || [];
+    resDeal.successRes(res, {
+        code: 200,
+        data: result
+    });
+}
+
+/**
+ * @desc 添加好友
+ * @param req {Request} 请求主体
+ * @param res {Response} 响应主体
+ * @param params {object}
+ * params.id用户id, params.name用户名,
+ * params.friendId需要添加好友的用户id, params.friendName被添加好友用户名
+ * @return {void}
+ */
+function addFriend(req, res, params) {
+    if (params) {
+        params = JSON.parse(params);
+    }
+    const ope = [
+        {
+            id: params.id,
+            friendId: params.friendId,
+            friendName: params.friendName,
+            type: 'ADD',
+            status: 'SENT'
+        },
+        {
+            id: params.friendId,
+            friendId: params.id,
+            friendName: params.name,
+            type: 'REQADD',
+            status: 'REVEIVE'
+        }
+    ];
+    const record = dataOpe.addData(list.db, list.collections.userOperationRecord, ope);
+    const { status } = record;
+    if (status === 'fail') {
+        resDeal.failureRes(res, '添加好友失败');
+        return;
+    }
+    resDeal.successRes(res, {
+        code: 200,
+        data: null
+    });
+}
 
 /**
  * 通过添加好友请求接口
@@ -130,13 +188,9 @@ async function getFriendList(req, res, params) {
     if (params) {
         params = JSON.parse(params);
     }
-    const friendsInfo = await dataOpe.searchData(
-        collectionNames.db,
-        collectionNames.collections.userFriends,
-        {
-            id: Number(params.id)
-        }
-    );
+    const friendsInfo = await dataOpe.searchData(list.db, list.collections.userFriends, {
+        id: Number(params.id)
+    });
     const { status } = friendsInfo;
     if (status === 'fail') {
         resDeal.failureRes(res, '获取好友信息失败');
@@ -146,11 +200,9 @@ async function getFriendList(req, res, params) {
     let info = { code: 200, data: [] };
     if (list.length) {
         list = list.map(item => item.friend);
-        let friends = await dataOpe.searchData(
-            collectionNames.db,
-            collectionNames.collections.userList,
-            { id: { $in: list } }
-        );
+        let friends = await dataOpe.searchData(list.db, list.collections.userList, {
+            id: { $in: list }
+        });
         if (friends.status === 'fail') {
             resDeal.failureRes(res, '获取好友信息失败');
             return;
@@ -179,9 +231,7 @@ async function saveMessage(params) {
     } else {
         params.ids = `${from}-${to}`;
     }
-    const info = dataOpe.addData(collectionNames.db, collectionNames.collections.chatRecord, [
-        params
-    ]);
+    const info = dataOpe.addData(list.db, list.collections.chatRecord, [params]);
     const { status } = info;
     if (status === 'fail') {
         console.log('保存失败');
@@ -197,11 +247,9 @@ async function saveMessage(params) {
  */
 async function searchMessage(req, res, params) {
     params = JSON.parse(params);
-    const info = await dataOpe.searchData(
-        collectionNames.db,
-        collectionNames.collections.chatRecord,
-        { ids: params.ids }
-    );
+    const info = await dataOpe.searchData(list.db, list.collections.chatRecord, {
+        ids: params.ids
+    });
     const { status } = info;
     if (status === 'fail') {
         resDeal.failureRes(res, '获取聊天记录失败');
