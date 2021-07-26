@@ -30,15 +30,12 @@ export default function Main(): ReactElement {
     const [news, setNews] = useState<Array<InfoType.info>>([]);
     const [wsObj, setObj] = useState(WebSocket.prototype);
     const [friends, setFreiend] = useState<Array<InfoType.friend>>([]);
-    // let list: Array<InfoType.info> = [];
-    useEffect(() => {
+    function establish() {
         const ws = link(id);
         setObj(ws);
         ws.onmessage = evt => {
-            // console.log(list);
             const message = evt.data;
             const info = JSON.parse(message);
-
             if (info.start) {
                 return;
             }
@@ -46,10 +43,20 @@ export default function Main(): ReactElement {
             // console.log(n_s);
             setNews(deepClone(newsList));
         };
-        getFriendList({ id }).then(res => {
-            console.log(res);
-        });
-    }, []);
+    }
+    // let list: Array<InfoType.info> = [];
+    useEffect(() => {
+        establish();
+        let ignore = false;
+        async function fetchFriends(params: { id: string | number }) {
+            const result = await getFriendList({ id: params.id });
+            console.log(result);
+        }
+        fetchFriends({ id });
+        return () => {
+            ignore = true;
+        };
+    }, []); // 传入一个空数组为参数，不管什么情况useEffect只会执行一次
     return (
         <div className={styles['main-con']}>
             <div className={styles['main-chat-model']}>
