@@ -29,35 +29,9 @@ export default function Main(): ReactElement {
     const id = state.id;
     const [news, setNews] = useState<Array<InfoType.info>>([]);
     const [wsObj, setObj] = useState(WebSocket.prototype);
+    const [isChat, setChat] = useState(false);
     const [friends, setFreiend] = useState<Array<InfoType.friend>>([]);
-    function establish() {
-        const ws = link(id);
-        setObj(ws);
-        ws.onmessage = evt => {
-            const message = evt.data;
-            const info = JSON.parse(message);
-            if (info.start) {
-                return;
-            }
-            newsList.push(info);
-            // console.log(n_s);
-            setNews(deepClone(newsList));
-        };
-    }
-    // let list: Array<InfoType.info> = [];
-    // useEffect(() => {
-    //     establish();
-    //     let ignore = false;
-    //     async function fetchFriends(params: { id: string | number }) {
-    //         const result = await getFriendList({ id: params.id });
-    //         console.log(result);
-    //     }
-    //     fetchFriends({ id });
-    //     return () => {
-    //         ignore = true;
-    //     };
-    // }, []);
-    // 传入一个空数组为参数，不管什么情况useEffect只会执行一次
+
     useEffect(() => {
         const ws = link(id);
         setObj(ws);
@@ -70,7 +44,12 @@ export default function Main(): ReactElement {
             // 函数式更新 https://react.docschina.org/docs/hooks-reference.html#functional-updates
             setNews(news => [...news, info]);
         };
-    }, []);
+        async function fetchFriends(params: { id: string | number }) {
+            const result = await getFriendList({ id: params.id });
+            console.log(result);
+        }
+        fetchFriends({ id });
+    }, []); // 传入一个空数组为参数，不管什么情况useEffect只会执行一次
     return (
         <div className={styles['main-con']}>
             <div className={styles['main-chat-model']}>
@@ -78,17 +57,21 @@ export default function Main(): ReactElement {
                     <SetList></SetList>
                     <FriendList></FriendList>
                 </div>
-                <div className={styles['right-chat-box']}>
-                    <NewsShow info={news} id={id}></NewsShow>
-                    <SendMsg
-                        ws={wsObj}
-                        id={id}
-                        addNews={(info: InfoType.info) => {
-                            // newsList.push(info);
-                            setNews(news => [...news, info]);
-                        }}
-                    ></SendMsg>
-                </div>
+                {isChat ? (
+                    <div className={styles['right-chat-box']}>
+                        <NewsShow info={news}></NewsShow>
+                        <SendMsg
+                            ws={wsObj}
+                            id={id}
+                            addNews={(info: InfoType.info) => {
+                                // newsList.push(info);
+                                setNews(news => [...news, info]);
+                            }}
+                        ></SendMsg>
+                    </div>
+                ) : (
+                    <div className={styles['blank-board']}>当此世，赢输都算闲话！</div>
+                )}
             </div>
         </div>
     );

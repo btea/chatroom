@@ -4,11 +4,10 @@ import { userInfo } from '../../utils/useUser';
 
 interface news {
     info: Array<InfoType.info>;
-    id: number;
 }
 
 export default function NewsShow(props: news): ReactElement {
-    const { info, id } = props;
+    const { info } = props;
     const types: { [key: string]: string } = {
         text: 'Text',
         audio: 'Audio',
