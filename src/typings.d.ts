@@ -33,6 +33,12 @@ declare namespace InfoType {
         content: string | Blob | Buffer;
     }
 
+    export interface friendInfo {
+        nickname: string;
+        avatar: string;
+        id: number | string;
+        _id: string;
+    }
     export interface friend {
         name: string;
         avatar: string;

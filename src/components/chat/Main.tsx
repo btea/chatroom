@@ -30,7 +30,7 @@ export default function Main(): ReactElement {
     const [news, setNews] = useState<Array<InfoType.info>>([]);
     const [wsObj, setObj] = useState(WebSocket.prototype);
     const [isChat, setChat] = useState(false);
-    const [friends, setFreiend] = useState<Array<InfoType.friend>>([]);
+    const [friends, setFreiend] = useState<Array<InfoType.friendInfo>>([]);
 
     useEffect(() => {
         const ws = link(id);
@@ -46,16 +46,18 @@ export default function Main(): ReactElement {
         };
         async function fetchFriends(params: { id: string | number }) {
             const result = await getFriendList({ id: params.id });
-            console.log(result);
+            const data = result as { data: { data: Array<InfoType.friendInfo> } };
+            const list = data.data.data;
+            setFreiend(list);
         }
         fetchFriends({ id });
-    }, []); // 传入一个空数组为参数，不管什么情况useEffect只会执行一次
+    }, [id]); // 传入一个空数组为参数，不管什么情况useEffect只会执行一次
     return (
         <div className={styles['main-con']}>
             <div className={styles['main-chat-model']}>
                 <div className={styles['left-chat-list']}>
                     <SetList></SetList>
-                    <FriendList></FriendList>
+                    <FriendList list={friends}></FriendList>
                 </div>
                 {isChat ? (
                     <div className={styles['right-chat-box']}>

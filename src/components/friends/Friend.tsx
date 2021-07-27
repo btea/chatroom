@@ -3,12 +3,7 @@ import styles from './friends.module.less';
 import ShowAvatar from './ShowAvatar';
 
 interface person {
-    person: {
-        name: string;
-        avatar: string;
-        id: string;
-        word: string;
-    };
+    person: InfoType.friendInfo;
 }
 
 export default function Friend(props: person): ReactElement {
@@ -26,7 +21,7 @@ export default function Friend(props: person): ReactElement {
                 />
             </div>
             <div className={styles['news-con']}>
-                <div className={styles['nick-name']}>{person.name}</div>
+                <div className={styles['nick-name']}>{person.nickname}</div>
             </div>
             {showAvatar && (
                 <ShowAvatar avatar={person.avatar} changeShow={switchShowAvatar}></ShowAvatar>
