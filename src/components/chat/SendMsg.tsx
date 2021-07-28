@@ -1,14 +1,8 @@
-import React, {
-    ReactElement,
-    useState,
-    useRef,
-    useEffect,
-    MutableRefObject,
-    forwardRef
-} from 'react';
+import React, { ReactElement, useRef, useEffect } from 'react';
 import styles from './sendmsg.module.less';
 import Message from '../../utils/Message';
 import { userInfo } from '../../utils/useUser';
+import iconList from '../../utils/icons';
 interface sendMsg {
     ws: WebSocket;
     id: number;
@@ -76,6 +70,12 @@ export default function SendMessage(props: sendMsg): ReactElement {
     });
     return (
         <div className={styles['send-box']}>
+            <div className={styles['icon-list']}>
+                <i
+                    className={styles['icon']}
+                    dangerouslySetInnerHTML={{ __html: iconList.sendIcon.svg }}
+                ></i>
+            </div>
             <div
                 className={styles['word-box']}
                 contentEditable="true"
