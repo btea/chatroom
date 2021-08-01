@@ -11,6 +11,7 @@ interface person {
 
 interface props {
     list: Array<InfoType.friendInfo>;
+    startChat: (info: InfoType.friendInfo) => void;
 }
 
 export default function FriendList(props: props): ReactElement {
@@ -36,11 +37,19 @@ export default function FriendList(props: props): ReactElement {
     //         id: '3'
     //     }
     // ]);
-    const { list } = props;
+    const { list, startChat } = props;
     return (
         <ul className={styles['friends-list']}>
             {list.map((per: InfoType.friendInfo) => {
-                return <Friend person={per} key={per.id}></Friend>;
+                return (
+                    <Friend
+                        chat={(info: InfoType.friendInfo) => {
+                            startChat(info);
+                        }}
+                        person={per}
+                        key={per.id}
+                    ></Friend>
+                );
             })}
         </ul>
     );

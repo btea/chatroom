@@ -39,6 +39,8 @@ export default function NewsShow(props: news): ReactElement {
             });
         }
     });
+    // console.log(info);
+    // console.log(userInfo);
     return (
         <div className={styles['news-show']}>
             <div className={styles['news-container']} ref={el}>
@@ -56,7 +58,11 @@ export default function NewsShow(props: news): ReactElement {
                                 <div className={styles['avatar']}>
                                     <img
                                         className={styles['avatar-img']}
-                                        src="https://pic.rmb.bdstatic.com/f6794743b48dc2a0142ae2462c4b6f7f.jpeg"
+                                        src={
+                                            userInfo.id == Number(news.from.id)
+                                                ? news.from.avatar
+                                                : news.to.avatar
+                                        }
                                         alt=""
                                     />
                                 </div>

@@ -8,6 +8,7 @@ import SetList from './SetList';
 import styles from './main.module.less';
 import startLink from './socket';
 import { getFriendList } from '../../http/http';
+import { friendInfo } from '../../utils/useUser';
 import { newsList } from '../../state/news';
 
 function link(id: number) {
@@ -57,7 +58,13 @@ export default function Main(): ReactElement {
             <div className={styles['main-chat-model']}>
                 <div className={styles['left-chat-list']}>
                     <SetList></SetList>
-                    <FriendList list={friends}></FriendList>
+                    <FriendList
+                        list={friends}
+                        startChat={info => {
+                            Object.assign(friendInfo, info);
+                            setChat(true);
+                        }}
+                    ></FriendList>
                 </div>
                 {isChat ? (
                     <div className={styles['right-chat-box']}>

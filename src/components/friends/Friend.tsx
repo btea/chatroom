@@ -4,14 +4,20 @@ import ShowAvatar from './ShowAvatar';
 
 interface person {
     person: InfoType.friendInfo;
+    chat: (info: InfoType.friendInfo) => void;
 }
 
 export default function Friend(props: person): ReactElement {
-    const { person } = props;
+    const { person, chat } = props;
     const [showAvatar, switchShowAvatar] = useState(false);
 
     return (
-        <div className={styles.friend}>
+        <div
+            className={styles.friend}
+            onClick={() => {
+                chat(person);
+            }}
+        >
             <div className={styles.avatar}>
                 <img
                     src={person.avatar}
