@@ -58,11 +58,7 @@ export default function NewsShow(props: news): ReactElement {
                                 <div className={styles['avatar']}>
                                     <img
                                         className={styles['avatar-img']}
-                                        src={
-                                            userInfo.id == Number(news.from.id)
-                                                ? news.from.avatar
-                                                : news.to.avatar
-                                        }
+                                        src={news.from.avatar}
                                         alt=""
                                     />
                                 </div>
