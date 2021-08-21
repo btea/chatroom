@@ -34,3 +34,13 @@ export default {
     fileIcon,
     videoIcon
 };
+
+type oneIcon = {
+    svg: string;
+    name: string;
+};
+export interface iconListType {
+    sendIcon: oneIcon;
+    fileIcon: oneIcon;
+    videoIcon: oneIcon;
+}
