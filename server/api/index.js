@@ -9,6 +9,10 @@ function parseParams(req, res) {
     let { url, method } = req;
     method = method.toLowerCase();
     res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+    if (url === '/') {
+        res.end('');
+        return;
+    }
     let params = '';
     if (method === 'get') {
         [url, params] = url.split('?');
